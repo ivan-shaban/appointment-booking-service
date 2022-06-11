@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native'
+import { Headline } from 'react-native-paper'
 
-import EditScreenInfo from '../components/EditScreenInfo'
-import { Text, View } from '../components/Themed'
+import { View } from '../components/Themed'
+import { Tab } from '../constants/Tab'
+import { RootTabScreenProps } from '../types'
 
-export default function TabTwoScreen() {
+export function MastersScreen({ navigation }: RootTabScreenProps<Tab.Masters>) {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Tab Two</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-            <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+            <Headline>Masters</Headline>
         </View>
     )
 }
