@@ -24,7 +24,7 @@ export const ScreenHeader: FC<NativeStackHeaderProps> = ({ options, back, naviga
             ) : (
                 <TouchableOpacity
                     onPress={() => {
-                        navigation.openDrawer()
+                        // navigation.openDrawer()
                     }}
                 >
                     <Avatar.Image
