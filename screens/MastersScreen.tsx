@@ -1,5 +1,4 @@
 import { ScrollView, StyleSheet } from 'react-native'
-import { Headline } from 'react-native-paper'
 
 import { MasterItem } from '../components/MasterItem'
 import { View } from '../components/Themed'

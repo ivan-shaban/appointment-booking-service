@@ -1,43 +1,25 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 import * as React from 'react'
 import { FC } from 'react'
-import { Platform, TouchableOpacity } from 'react-native'
-import { Appbar, Avatar } from 'react-native-paper'
 
-const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
+import { Profile } from './Header/Profile'
+import { Root } from './Header/Root'
 
-export const ScreenHeader: FC<NativeStackHeaderProps> = ({ options, back, navigation }) => {
-    // const { options } = scene.descriptor
-    const title = '222'
-    console.log(`>> nn`, navigation.canGoBack(), back, options)
-    // const title =
-    //     options.headerTitle !== undefined
-    //         ? options.headerTitle
-    //         : options.title !== undefined
-    //         ? options.title
-    //         : scene.route.name
+export const ScreenHeader: FC<NativeStackHeaderProps> = (props) => {
+    const { options, back, navigation, route } = props
+    // console.log(`>> header`, navigation.canGoBack(), back, options)
+    // console.log(`>> header > route`, route)
 
-    return (
-        <Appbar.Header>
-            {back ? (
-                <Appbar.BackAction onPress={navigation.pop} />
-            ) : (
-                <TouchableOpacity
-                    onPress={() => {
-                        // navigation.openDrawer()
-                    }}
-                >
-                    <Avatar.Image
-                        size={40}
-                        source={{
-                            uri: 'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
-                        }}
-                    />
-                </TouchableOpacity>
-            )}
-            <Appbar.Content title={title} subtitle="enjoy the greatest hits" />
-            <Appbar.Action icon="magnify" onPress={() => {}} />
-            <Appbar.Action icon={MORE_ICON} onPress={() => {}} />
-        </Appbar.Header>
-    )
+    switch (route.name) {
+        case 'Root': {
+            return <Root {...props} />
+        }
+        case 'MasterProfile': {
+            return <Profile {...props} />
+        }
+        default: {
+            console.log(`>> no header for this view: ${route.name}`)
+            return null
+        }
+    }
 }

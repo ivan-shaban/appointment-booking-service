@@ -7,6 +7,7 @@ import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/n
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 import { Tab } from './constants/Tab'
+import { Master } from './datas/masters'
 
 declare global {
     namespace ReactNavigation {
@@ -15,9 +16,9 @@ declare global {
 }
 
 export type RootStackParamList = {
-    Root: NavigatorScreenParams<RootTabParamList> | undefined
+    Root?: NavigatorScreenParams<RootTabParamList>
     Modal: undefined
-    NotFound: undefined
+    MasterProfile: { id: number } & NavigatorScreenParams<MasterProfileTabParamList>
 }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -30,6 +31,11 @@ export type RootTabParamList = {
     [Tab.Locations]: undefined
     [Tab.Favourite]: undefined
     [Tab.Profile]: undefined
+}
+
+export type MasterProfileTabParamList = {
+    Description: { master: Master }
+    Feedbacks: { master: Master }
 }
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

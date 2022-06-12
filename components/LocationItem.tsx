@@ -4,44 +4,37 @@ import React, { FC, memo, useCallback } from 'react'
 import { Dimensions, GestureResponderEvent, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Avatar, Divider, Headline, Text } from 'react-native-paper'
 
-import { locations } from '../datas/locations'
+import { Location, locations } from '../datas/locations'
 import { Master } from '../datas/masters'
-import { locales } from '../locales/masters'
 
 export interface Props {
-    readonly master: Master
+    readonly location: Location
 }
 
-const screenWidth = Dimensions.get('window').width
-export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
+export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
     const navigation = useNavigation()
-    const location = locations.find(({ id }) => id === master.locationId)!
 
     const handleOpenProfile = useCallback(() => {
-        navigation.navigate('MasterProfile', { id: master.id, screen: 'Description' })
-    }, [master])
+        // navigation.navigate('MasterProfile', { id: master.id })
+    }, [location])
 
-    const handleAddToFavourites = useCallback((event: GestureResponderEvent) => {
-        event.stopPropagation()
-        console.log(`>> favourite ${master.name}!`)
-    }, [])
+    const handleAddToFavourites = useCallback(
+        (event: GestureResponderEvent) => {
+            event.stopPropagation()
+            console.log(`>> favourite ${location.address}!`)
+        },
+        [location],
+    )
 
     return (
         <>
             <TouchableOpacity onPress={handleOpenProfile}>
                 <View style={styles.base}>
-                    <Avatar.Image
-                        style={styles.avatar}
-                        size={40}
-                        source={{
-                            uri: master.avatar,
-                        }}
-                    />
                     <View>
-                        <Headline>{master.name}</Headline>
-                        <Text>{master.type.map((type) => locales[type]).join(', ')}</Text>
+                        <Headline>{location.address}</Headline>
+                        {/*<Text>{location?.address}</Text>*/}
                     </View>
-                    {master.isFavourite && (
+                    {location.isFavourite && (
                         <TouchableOpacity style={styles.favourite} onPress={handleAddToFavourites}>
                             <MaterialCommunityIcons
                                 size={24}
@@ -59,7 +52,6 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
 
 const styles = StyleSheet.create({
     base: {
-        width: screenWidth,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
