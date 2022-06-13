@@ -13,6 +13,8 @@ export const allMasterTypes = [
     MasterType.Cosmetic,
 ] as const
 
+export interface MasterFeeback {}
+
 export interface Master {
     readonly id: number
     readonly name: string
@@ -24,6 +26,7 @@ export interface Master {
     readonly locationId: number
     readonly isFavourite: boolean
     readonly worksWith: ClientType[]
+    readonly feedbacks: MasterFeeback[]
 }
 
 export const masters: Master[] = faker.datatype.array(17).map((_, index) => {
@@ -46,5 +49,8 @@ export const masters: Master[] = faker.datatype.array(17).map((_, index) => {
         worksWith: faker.datatype
             .array(faker.datatype.number({ min: 1, max: 4 }))
             .map((_, index) => shuffledGenders[index]),
+        feedbacks: faker.datatype
+            .array(faker.datatype.number({ min: 0, max: 100 }))
+            .map(() => ({})),
     }
 })

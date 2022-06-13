@@ -1,8 +1,8 @@
 export enum ClientType {
-    Male,
-    Female,
-    MaleChild,
-    FemaleChild,
+    Male = 'male',
+    Female = 'female',
+    MaleChild = 'malechild',
+    FemaleChild = 'femalechild',
 }
 
 export const allGenders = [

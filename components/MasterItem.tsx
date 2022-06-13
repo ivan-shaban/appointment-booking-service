@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import React, { FC, memo, useCallback } from 'react'
 import { Dimensions, GestureResponderEvent, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, Divider, Headline, Text } from 'react-native-paper'
+import { Avatar, Badge, Divider, Headline, Text } from 'react-native-paper'
 
 import { locations } from '../datas/locations'
 import { Master } from '../datas/masters'
@@ -37,6 +37,9 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
                             uri: master.avatar,
                         }}
                     />
+                    {!!master.feedbacks.length && (
+                        <Badge style={styles.feedbackBadge}>{master.feedbacks.length}</Badge>
+                    )}
                     <View>
                         <Headline>{master.name}</Headline>
                         <Text>{master.type.map((type) => locales[type]).join(', ')}</Text>
@@ -69,6 +72,11 @@ const styles = StyleSheet.create({
     },
     avatar: {
         marginRight: 16,
+    },
+    feedbackBadge: {
+        position: 'absolute',
+        top: 40,
+        left: 45,
     },
     favourite: {
         marginLeft: 'auto',

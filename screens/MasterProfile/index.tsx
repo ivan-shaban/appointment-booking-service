@@ -1,18 +1,7 @@
-import {
-    MaterialTopTabBarProps,
-    MaterialTopTabNavigationEventMap,
-    createMaterialTopTabNavigator,
-} from '@react-navigation/material-top-tabs'
-import { MaterialTopTabDescriptorMap } from '@react-navigation/material-top-tabs/lib/typescript/src/types'
-import {
-    NavigationContainer,
-    NavigationHelpers,
-    ParamListBase,
-    TabNavigationState,
-} from '@react-navigation/native'
-import React from 'react'
-import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, IconButton, Text, Title } from 'react-native-paper'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { Avatar, Badge, FAB, IconButton, Title } from 'react-native-paper'
 
 import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
@@ -26,63 +15,11 @@ const TabsTop = createMaterialTopTabNavigator<{
     Feedbacks: { master: Master }
 }>()
 
-// export function MyTabBar({ state, descriptors, navigation, position }: MaterialTopTabBarProps) {
-//     // console.log(`>> routes`, state.routes)
-//     // console.log(`>> descriptors`, descriptors)
-//     return (
-//         <View style={{ flexDirection: 'row' }}>
-//             {state.routes.map((route, index) => {
-//                 const { options } = descriptors[route.key]
-//                 const label =
-//                     options.tabBarLabel !== undefined
-//                         ? options.tabBarLabel
-//                         : options.title !== undefined
-//                         ? options.title
-//                         : route.name
-//
-//                 const isFocused = state.index === index
-//
-//                 const onPress = () => {
-//                     const event = navigation.emit({
-//                         type: 'tabPress',
-//                         target: route.key,
-//                         canPreventDefault: true,
-//                     })
-//
-//                     if (!isFocused && !event.defaultPrevented) {
-//                         // The `merge: true` option makes sure that the params inside the tab screen are preserved
-//                         navigation.navigate({ name: route.name, merge: true })
-//                     }
-//                 }
-//
-//                 const onLongPress = () => {
-//                     navigation.emit({
-//                         type: 'tabLongPress',
-//                         target: route.key,
-//                     })
-//                 }
-//
-//                 return (
-//                     <TouchableOpacity
-//                         key={route.key}
-//                         accessibilityRole="button"
-//                         accessibilityState={isFocused ? { selected: true } : {}}
-//                         accessibilityLabel={options.tabBarAccessibilityLabel}
-//                         testID={options.tabBarTestID}
-//                         onPress={onPress}
-//                         onLongPress={onLongPress}
-//                         style={{ flex: 1 }}
-//                     >
-//                         <Text>{label}</Text>
-//                     </TouchableOpacity>
-//                 )
-//             })}
-//         </View>
-//     )
-// }
-
 export function MasterProfile({ navigation, route }: RootStackScreenProps<'MasterProfile'>) {
     const master = masters.find(({ id }) => id === route.params.id)!
+    const [fabOpen, setFabOpen] = useState(false)
+
+    const onStateChange = ({ open }) => setFabOpen(open)
 
     return (
         <View style={styles.base}>
@@ -95,11 +32,11 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                     }}
                 />
                 <IconButton
-                    style={styles.favourite}
+                    style={styles.favouriteButton}
                     icon="cards-heart-outline"
                     color={colorByTab[Tab.Favourite]}
                     size={40}
-                    onPress={() => console.log('Pressed')}
+                    onPress={() => console.log('Favourite Pressed')}
                 />
                 <Title>{master.name}</Title>
             </View>
@@ -113,10 +50,52 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                 <TabsTop.Screen
                     name="Feedbacks"
                     component={FeedbacksTab}
-                    options={{ title: 'Отзывы' }}
+                    options={{
+                        tabBarLabel: 'Отзывы',
+                        tabBarBadge: () =>
+                            !!master.feedbacks.length && (
+                                <Badge style={styles.feedbackBadge}>
+                                    {master.feedbacks.length}
+                                </Badge>
+                            ),
+                    }}
                     initialParams={{ master }}
                 />
             </TabsTop.Navigator>
+            <FAB.Group
+                open={fabOpen}
+                icon={fabOpen ? 'arrow-left-circle' : 'plus'}
+                color={fabOpen ? 'white' : colorByTab[Tab.Masters]}
+                actions={[
+                    {
+                        icon: 'calendar-today',
+                        label: 'Записаться на ближайшее время',
+                        onPress: () => console.log('Pressed star'),
+                    },
+                    {
+                        icon: 'calendar-search',
+                        label: 'Записаться на определенную дату',
+                        onPress: () => console.log('Pressed email'),
+                    },
+                    {
+                        icon: 'calendar-remove',
+                        label: 'Отменить запись',
+                        onPress: () => console.log('Pressed email'),
+                    },
+                    // {
+                    //     icon: 'bell',
+                    //     label: 'Remind',
+                    //     onPress: () => console.log('Pressed notifications'),
+                    //     small: false,
+                    // },
+                ]}
+                onStateChange={onStateChange}
+                onPress={() => {
+                    if (fabOpen) {
+                        // do something if the speed dial is open
+                    }
+                }}
+            />
         </View>
     )
 }
@@ -133,7 +112,11 @@ const styles = StyleSheet.create({
     avatar: {
         marginBottom: 8,
     },
-    favourite: {
+    feedbackBadge: {
+        marginTop: 5,
+        marginRight: 50,
+    },
+    favouriteButton: {
         position: 'absolute',
         backgroundColor: 'white',
         top: 160,
