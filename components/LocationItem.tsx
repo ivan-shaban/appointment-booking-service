@@ -1,11 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import React, { FC, memo, useCallback } from 'react'
-import { Dimensions, GestureResponderEvent, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, Divider, Headline, Text } from 'react-native-paper'
+import { GestureResponderEvent, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Avatar, Badge, Divider, Headline, Text } from 'react-native-paper'
 
-import { Location, locations } from '../datas/locations'
-import { Master } from '../datas/masters'
+import { Location } from '../datas/locations'
 
 export interface Props {
     readonly location: Location
@@ -14,8 +13,8 @@ export interface Props {
 export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
     const navigation = useNavigation()
 
-    const handleOpenProfile = useCallback(() => {
-        // navigation.navigate('MasterProfile', { id: master.id })
+    const handleOpenDetails = useCallback(() => {
+        navigation.navigate('LocationProfile', { id: location.id })
     }, [location])
 
     const handleAddToFavourites = useCallback(
@@ -28,11 +27,15 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
 
     return (
         <>
-            <TouchableOpacity onPress={handleOpenProfile}>
+            <TouchableOpacity onPress={handleOpenDetails}>
                 <View style={styles.base}>
+                    <Avatar.Icon style={styles.avatar} size={40} icon="map-outline" />
+                    {!!location.feedbacks.length && (
+                        <Badge style={styles.feedbackBadge}>{location.feedbacks.length}</Badge>
+                    )}
                     <View>
-                        <Headline>{location.address}</Headline>
-                        {/*<Text>{location?.address}</Text>*/}
+                        <Headline>{location.name}</Headline>
+                        <Text>{location.address}</Text>
                     </View>
                     {location.isFavourite && (
                         <TouchableOpacity style={styles.favourite} onPress={handleAddToFavourites}>
@@ -61,6 +64,11 @@ const styles = StyleSheet.create({
     },
     avatar: {
         marginRight: 16,
+    },
+    feedbackBadge: {
+        position: 'absolute',
+        top: 40,
+        left: 45,
     },
     favourite: {
         marginLeft: 'auto',

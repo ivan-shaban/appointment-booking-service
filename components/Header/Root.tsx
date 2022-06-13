@@ -1,14 +1,15 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 import React, { FC } from 'react'
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { Appbar, Avatar } from 'react-native-paper'
 
-export interface Props {}
-const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
+export interface Props extends NativeStackHeaderProps {}
 
-export const Root: FC<NativeStackHeaderProps> = ({ options, back, navigation, route }) => {
+export const Root: FC<Props> = ({ navigation }) => {
     return (
         <Appbar.Header style={styles.base}>
+            <Appbar.Action icon="menu" onPress={() => {}} />
+            <Appbar.Action icon="magnify" style={styles.magnify} onPress={() => {}} />
             <TouchableOpacity
                 onPress={() => {
                     // navigation.openDrawer()
@@ -21,8 +22,6 @@ export const Root: FC<NativeStackHeaderProps> = ({ options, back, navigation, ro
                     }}
                 />
             </TouchableOpacity>
-            <Appbar.Action icon="magnify" style={styles.magnify} onPress={() => {}} />
-            <Appbar.Action icon={MORE_ICON} onPress={() => {}} />
         </Appbar.Header>
     )
 }

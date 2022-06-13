@@ -19,6 +19,7 @@ export type RootStackParamList = {
     Root?: NavigatorScreenParams<RootTabParamList>
     Modal: undefined
     MasterProfile: { id: number } & NavigatorScreenParams<MasterProfileTabParamList>
+    LocationProfile: { id: number }
 }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

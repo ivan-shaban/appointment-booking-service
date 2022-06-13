@@ -2,6 +2,7 @@ import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 import * as React from 'react'
 import { FC } from 'react'
 
+import { Location } from './Header/Location'
 import { Profile } from './Header/Profile'
 import { Root } from './Header/Root'
 
@@ -16,6 +17,9 @@ export const ScreenHeader: FC<NativeStackHeaderProps> = (props) => {
         }
         case 'MasterProfile': {
             return <Profile {...props} />
+        }
+        case 'LocationProfile': {
+            return <Location {...props} />
         }
         default: {
             console.log(`>> no header for this view: ${route.name}`)

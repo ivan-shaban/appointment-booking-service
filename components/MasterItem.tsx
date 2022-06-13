@@ -18,7 +18,11 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
     const location = locations.find(({ id }) => id === master.locationId)!
 
     const handleOpenProfile = useCallback(() => {
-        navigation.navigate('MasterProfile', { id: master.id, screen: 'Description' })
+        navigation.navigate('MasterProfile', {
+            id: master.id,
+            screen: 'Description',
+            params: { master },
+        })
     }, [master])
 
     const handleAddToFavourites = useCallback((event: GestureResponderEvent) => {

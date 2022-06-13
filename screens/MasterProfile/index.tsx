@@ -33,7 +33,7 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                 />
                 <IconButton
                     style={styles.favouriteButton}
-                    icon="cards-heart-outline"
+                    icon={master.isFavourite ? 'cards-heart' : 'cards-heart-outline'}
                     color={colorByTab[Tab.Favourite]}
                     size={40}
                     onPress={() => console.log('Favourite Pressed')}

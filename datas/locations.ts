@@ -2,14 +2,18 @@ import { ClientType, allGenders } from '../constants/genders'
 import faker from '@faker-js/faker'
 import shuffle from 'lodash.shuffle'
 
+export interface LocationFeedback {}
+
 export interface Location {
     readonly id: number
+    readonly name: string
     readonly address: string
     readonly worksWith: ClientType[]
     readonly isFavourite: boolean
     readonly lat: number
     readonly lng: number
     readonly tel: string
+    readonly feedbacks: LocationFeedback[]
     /**
      * 7 days, max 3 breaks per day
      */
@@ -23,6 +27,7 @@ export const locations: Location[] = faker.datatype.array(8).map((_, index) => {
 
     return {
         id: index,
+        name: faker.company.companyName(),
         address: faker.address.streetAddress(true),
         lat: 0,
         lng: 0,
@@ -35,5 +40,8 @@ export const locations: Location[] = faker.datatype.array(8).map((_, index) => {
             .array(faker.datatype.number({ min: 1, max: 4 }))
             .map((_, index) => shuffledGenders[index]),
         schedules: [],
+        feedbacks: faker.datatype
+            .array(faker.datatype.number({ min: 0, max: 100 }))
+            .map(() => ({})),
     }
 })
