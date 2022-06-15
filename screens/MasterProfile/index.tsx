@@ -82,6 +82,12 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                         label: 'Отменить запись',
                         onPress: () => console.log('Pressed email'),
                     },
+                    {
+                        icon: 'comment-plus-outline',
+                        // icon: 'comment-text',
+                        label: 'Оставить отзыв',
+                        onPress: () => console.log('Pressed email'),
+                    },
                     // {
                     //     icon: 'bell',
                     //     label: 'Remind',
