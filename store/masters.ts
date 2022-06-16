@@ -1,5 +1,6 @@
 import { ClientType, allGenders } from '../constants/genders'
 import { MasterType } from '../constants/masters'
+import { HairServices } from '../constants/services'
 import { delay } from '../utils/time'
 import faker from '@faker-js/faker'
 import { createEffect, createStore } from 'effector'
@@ -26,6 +27,7 @@ export interface Master {
     readonly gender: 'male' | 'female'
     readonly avatar?: string
     readonly locationId: number
+    readonly services: HairServices[]
     readonly worksWith: ClientType[]
     readonly feedbacks: MasterFeedback[]
 }
@@ -38,6 +40,7 @@ export const requestAllMastersData = createEffect({
         return faker.datatype.array(17).map((_, index): Master => {
             const gender = Math.random() > 0.6 ? 'male' : 'female'
             const shuffledGenders = shuffle(allGenders)
+            const shuffledServices = shuffle(Object.values(HairServices))
 
             return {
                 id: index,
@@ -54,6 +57,9 @@ export const requestAllMastersData = createEffect({
                     gender === 'male' ? 'men' : 'women'
                 }/${index + 1}.jpg`,
                 locationId: faker.datatype.number({ min: 0, max: 7 }),
+                services: faker.datatype
+                    .array(faker.datatype.number({ min: 1, max: shuffledServices.length - 1 }))
+                    .map((_, index) => shuffledServices[index]),
                 worksWith: faker.datatype
                     .array(faker.datatype.number({ min: 1, max: 4 }))
                     .map((_, index) => shuffledGenders[index]),

@@ -2,12 +2,15 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Avatar, Badge, Headline, Text } from 'react-native-paper'
 
+import { colorByTab } from '../constants/Colors'
+import { Tab } from '../constants/Tab'
 import { Location } from '../store/locations'
+import { $masters } from '../store/masters'
 import { $currentUser } from '../store/user'
-import { View } from './Themed'
+import { View as ThemedView } from './Themed'
 
 export interface Props {
     readonly location: Location
@@ -15,6 +18,7 @@ export interface Props {
 
 export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
     const currentUser = useStore($currentUser)
+    const masters = useStore($masters).filter(({ locationId }) => locationId === location.id)
     const isFavouriteLocation = currentUser?.favourite.locations.includes(location.id)
     const navigation = useNavigation()
 
@@ -24,8 +28,17 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
 
     return (
         <TouchableOpacity onPress={handleOpenDetails}>
-            <View style={styles.base}>
+            <ThemedView style={styles.base}>
                 <Avatar.Icon style={styles.avatar} size={40} icon="map-outline" />
+                <View style={styles.mastersBadge}>
+                    <MaterialCommunityIcons
+                        style={styles.mastersBadgeIcon}
+                        size={16}
+                        name="account-group-outline"
+                        color="white"
+                    />
+                    <Text style={styles.mastersBadgeText}>{masters.length}</Text>
+                </View>
                 {!!location.feedbacks.length && (
                     <Badge style={styles.feedbackBadge}>{location.feedbacks.length}</Badge>
                 )}
@@ -45,7 +58,7 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
                         color="red"
                     />
                 )}
-            </View>
+            </ThemedView>
         </TouchableOpacity>
     )
 })
@@ -63,6 +76,25 @@ const styles = StyleSheet.create({
         marginRight: 16,
     },
     reducedText: { width: Dimensions.get('screen').width - 85 },
+    mastersBadge: {
+        position: 'absolute',
+        flexDirection: 'row',
+        paddingVertical: 2,
+        paddingHorizontal: 6,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        top: 10,
+        left: 15,
+        color: 'white',
+        backgroundColor: colorByTab[Tab.Masters],
+    },
+    mastersBadgeIcon: {
+        marginRight: 4,
+    },
+    mastersBadgeText: {
+        fontSize: 12,
+    },
     feedbackBadge: {
         position: 'absolute',
         top: 40,

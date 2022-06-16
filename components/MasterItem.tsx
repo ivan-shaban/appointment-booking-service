@@ -2,13 +2,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Avatar, Badge, Headline, Text } from 'react-native-paper'
 
 import { locales } from '../locales/masters'
 import { Master } from '../store/masters'
 import { $currentUser } from '../store/user'
-import { View } from './Themed'
+import { View as ThemedView } from './Themed'
 
 export interface Props {
     readonly master: Master
@@ -29,7 +29,7 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
 
     return (
         <TouchableOpacity onPress={handleOpenProfile}>
-            <View style={styles.base}>
+            <ThemedView style={styles.base}>
                 <Avatar.Image
                     style={styles.avatar}
                     size={40}
@@ -54,7 +54,7 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
                         color="red"
                     />
                 )}
-            </View>
+            </ThemedView>
         </TouchableOpacity>
     )
 })
