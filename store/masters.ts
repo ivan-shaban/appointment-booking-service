@@ -29,6 +29,7 @@ export interface Master {
     readonly locationId: number
     readonly services: HairServices[]
     readonly worksWith: ClientType[]
+    readonly rating: number
     readonly feedbacks: MasterFeedback[]
 }
 
@@ -63,6 +64,7 @@ export const requestAllMastersData = createEffect({
                 worksWith: faker.datatype
                     .array(faker.datatype.number({ min: 1, max: 4 }))
                     .map((_, index) => shuffledGenders[index]),
+                rating: faker.datatype.number({ min: 30, max: 50 }) / 10,
                 feedbacks: faker.datatype
                     .array(faker.datatype.number({ min: 0, max: 100 }))
                     .map(() => ({})),

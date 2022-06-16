@@ -6,6 +6,7 @@ import shuffle from 'lodash.shuffle'
 
 export interface LocationFeedback {
     readonly id: number
+    readonly title: string
     readonly message: string
     readonly rating: number
     readonly date: string
@@ -21,6 +22,7 @@ export interface Location {
     readonly lng: number
     readonly tel: string[]
     readonly gallery: string[]
+    readonly rating: number
     readonly feedbacks: LocationFeedback[]
     /**
      * 7 days, max 3 breaks per day
@@ -34,7 +36,6 @@ export const requestAllLocationsData = createEffect({
         await delay(500)
 
         return faker.datatype.array(8).map((_, index): Location => {
-            const gender = Math.random() > 0.6 ? 'male' : 'female'
             const shuffledGenders = shuffle(allGenders)
 
             return {
@@ -66,12 +67,14 @@ export const requestAllLocationsData = createEffect({
                     [['8:00', '21:00']],
                     [['8:00', '19:00']],
                 ],
+                rating: faker.datatype.number({ min: 30, max: 50 }) / 10,
                 feedbacks: faker.datatype
                     .array(faker.datatype.number({ min: 0, max: 100 }))
                     .map((_, index) => ({
                         id: index,
+                        title: faker.random.words(faker.datatype.number({ min: 4, max: 20 })),
                         message: faker.random.words(faker.datatype.number({ min: 20, max: 100 })),
-                        rating: faker.datatype.number({ min: 1, max: 5 }),
+                        rating: faker.datatype.number({ min: 30, max: 50 }) / 10,
                         date: faker.date.past(0).toISOString(),
                     })),
             }

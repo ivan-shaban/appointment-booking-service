@@ -10,6 +10,7 @@ export const Root: FC<Props> = ({ navigation }) => {
         <Appbar.Header style={styles.base}>
             <Appbar.Action icon="menu" onPress={() => {}} />
             <Appbar.Action icon="magnify" style={styles.magnify} onPress={() => {}} />
+            <Appbar.Action icon="bell" onPress={() => {}} />
             <TouchableOpacity
                 onPress={() => {
                     // navigation.openDrawer()
@@ -32,5 +33,6 @@ const styles = StyleSheet.create({
     },
     magnify: {
         marginLeft: 'auto',
+        marginRight: -5,
     },
 })

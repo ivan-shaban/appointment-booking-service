@@ -3,12 +3,13 @@ import { useNavigation } from '@react-navigation/native'
 import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, Badge, Headline, Text } from 'react-native-paper'
+import { Avatar, Headline, Text } from 'react-native-paper'
 
 import { locales } from '../locales/masters'
 import { Master } from '../store/masters'
 import { $currentUser } from '../store/user'
 import { View as ThemedView } from './Themed'
+import faker from '@faker-js/faker'
 
 export interface Props {
     readonly master: Master
@@ -17,7 +18,8 @@ export interface Props {
 export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
     const navigation = useNavigation()
     const currentUser = useStore($currentUser)
-    const isFavouriteMaster = currentUser?.favourite.masters.includes(master.id)
+    const isFavourite = currentUser?.favourite.masters.includes(master.id)
+    const roundedRating = Math.round(master.rating)
 
     const handleOpenProfile = useCallback(() => {
         navigation.navigate('MasterProfile', {
@@ -37,16 +39,31 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
                         uri: master.avatar,
                     }}
                 />
-                {!!master.feedbacks.length && (
-                    <Badge style={styles.feedbackBadge}>{master.feedbacks.length}</Badge>
-                )}
                 <View>
                     <Headline numberOfLines={1} style={styles.reducedText}>
                         {master.name}
                     </Headline>
-                    <Text>{master.type.map((type) => locales[type]).join(', ')}</Text>
+                    <Text>
+                        {master.type.map((type) => locales[type]).join(', ')},{' '}
+                        {master.feedbacks.length
+                            ? faker.datatype
+                                  .array(5)
+                                  .map((_m, index) => (
+                                      <MaterialCommunityIcons
+                                          style={styles.icon}
+                                          size={12}
+                                          name="star"
+                                          color={index + 1 <= roundedRating ? 'gold' : 'white'}
+                                          key={index}
+                                      />
+                                  ))
+                            : null}
+                        {master.feedbacks.length
+                            ? ` ${master.rating} (${master.feedbacks.length})`
+                            : null}
+                    </Text>
                 </View>
-                {isFavouriteMaster && (
+                {isFavourite && (
                     <MaterialCommunityIcons
                         style={styles.favourite}
                         size={24}

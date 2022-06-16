@@ -11,6 +11,7 @@ import { Location } from '../store/locations'
 import { $masters } from '../store/masters'
 import { $currentUser } from '../store/user'
 import { View as ThemedView } from './Themed'
+import faker from '@faker-js/faker'
 
 export interface Props {
     readonly location: Location
@@ -19,8 +20,9 @@ export interface Props {
 export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
     const currentUser = useStore($currentUser)
     const masters = useStore($masters).filter(({ locationId }) => locationId === location.id)
-    const isFavouriteLocation = currentUser?.favourite.locations.includes(location.id)
+    const isFavourite = currentUser?.favourite.locations.includes(location.id)
     const navigation = useNavigation()
+    const roundedRating = Math.round(location.rating)
 
     const handleOpenDetails = useCallback(() => {
         navigation.navigate('LocationProfile', { id: location.id })
@@ -39,18 +41,36 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
                     />
                     <Text style={styles.mastersBadgeText}>{masters.length}</Text>
                 </View>
-                {!!location.feedbacks.length && (
-                    <Badge style={styles.feedbackBadge}>{location.feedbacks.length}</Badge>
-                )}
                 <View>
-                    <Headline numberOfLines={1} style={styles.reducedText}>
+                    <Headline
+                        numberOfLines={1}
+                        style={isFavourite ? styles.reducedText__small : styles.reducedText}
+                    >
                         {location.name}
                     </Headline>
-                    <Text numberOfLines={1} style={styles.reducedText}>
+                    <Text
+                        numberOfLines={1}
+                        style={isFavourite ? styles.reducedText__small : styles.reducedText}
+                    >
                         {location.address}
                     </Text>
+                    {location.feedbacks.length ? (
+                        <Text>
+                            {faker.datatype.array(5).map((_m, index) => (
+                                <MaterialCommunityIcons
+                                    size={12}
+                                    name="star"
+                                    color={index + 1 <= roundedRating ? 'gold' : 'white'}
+                                    key={index}
+                                />
+                            ))}
+                            {` ${location.rating} (${location.feedbacks.length})`}
+                        </Text>
+                    ) : (
+                        <Text>No rating, be first user!</Text>
+                    )}
                 </View>
-                {isFavouriteLocation && (
+                {isFavourite && (
                     <MaterialCommunityIcons
                         style={styles.favourite}
                         size={24}
@@ -76,6 +96,7 @@ const styles = StyleSheet.create({
         marginRight: 16,
     },
     reducedText: { width: Dimensions.get('screen').width - 85 },
+    reducedText__small: { width: Dimensions.get('screen').width - 125 },
     mastersBadge: {
         position: 'absolute',
         flexDirection: 'row',
@@ -84,7 +105,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        top: 10,
+        top: 15,
         left: 15,
         color: 'white',
         backgroundColor: colorByTab[Tab.Masters],

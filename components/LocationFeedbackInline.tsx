@@ -4,15 +4,18 @@ import { StyleSheet, View } from 'react-native'
 import { Caption } from 'react-native-paper'
 
 import { LocationFeedback } from '../store/locations'
+import faker from '@faker-js/faker'
 import moment from 'moment'
 
 export interface Props {
-    feedback: LocationFeedback
+    readonly feedback: LocationFeedback
 }
 
 export const LocationFeedbackInline: FC<Props> = memo(function LocationFeedbackInline({
     feedback,
 }) {
+    const roundedRating = Math.round(feedback.rating)
+
     return (
         <View style={styles.base}>
             <MaterialCommunityIcons
@@ -21,8 +24,21 @@ export const LocationFeedbackInline: FC<Props> = memo(function LocationFeedbackI
                 name="comment-text-outline"
                 color="white"
             />
-            <Caption>{moment(feedback.date).format('YYYY.MM.DD, hh:mm')} / </Caption>
-            <Caption style={{ color: 'white' }}>{feedback.message}</Caption>
+            <Caption style={styles.title}>{feedback.title}</Caption>
+            <Caption>
+                {moment(feedback.date).format('YYYY.MM.DD, hh:mm')} /{' '}
+                {faker.datatype.array(5).map((_m, index) => (
+                    <MaterialCommunityIcons
+                        style={styles.icon}
+                        size={12}
+                        name="star"
+                        color={index + 1 <= roundedRating ? 'gold' : 'white'}
+                        key={index}
+                    />
+                ))}{' '}
+                ({feedback.rating})
+            </Caption>
+            <Caption style={styles.message}>{feedback.message}</Caption>
         </View>
     )
 })
@@ -32,9 +48,11 @@ const styles = StyleSheet.create({
         flex: 1,
         // backgroundColor: 'red',
     },
+    title: { fontWeight: 'bold', color: 'white', fontSize: 12 },
     icon: {
         position: 'absolute',
         top: 6,
         left: -24,
     },
+    message: { color: 'white' },
 })
