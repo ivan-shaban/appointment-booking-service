@@ -56,3 +56,5 @@ export enum HairServices {
      */
     styling_daily = 'styling_daily',
 }
+
+export type Service = HairServices

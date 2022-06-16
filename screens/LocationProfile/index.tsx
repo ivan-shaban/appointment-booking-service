@@ -1,16 +1,16 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useStore } from 'effector-react'
 import React from 'react'
-import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
-import { Chip, Subheading, Text } from 'react-native-paper'
+import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native'
+import { Subheading, Text } from 'react-native-paper'
 
-import { LocationFeedbackInline } from '../../components/LocationFeedbackInline'
+import { FeedbackEntry } from '../../components/FeedbackEntry'
 import { MasterItem } from '../../components/MasterItem'
 import { Paragpaph } from '../../components/Paragpaph'
 import { PhoneRecord } from '../../components/PhoneRecord'
 import { Schedule } from '../../components/Schedule'
-import { HairServices } from '../../constants/services'
-import { locales } from '../../locales/masters'
+import { ServiceChip } from '../../components/ServiceChip'
+import { Service } from '../../constants/services'
 import { $locations } from '../../store/locations'
 import { $masters } from '../../store/masters'
 import { RootStackScreenProps } from '../../types'
@@ -65,15 +65,12 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                         localMasters.reduce((result, master) => {
                             master.services.forEach((service) => result.add(service))
                             return result
-                        }, new Set<HairServices>()),
+                        }, new Set<Service>()),
                     ).map((service) => (
-                        <Chip icon="plus-circle" style={styles.serviceChip} key={service}>
-                            {locales[service]}
-                        </Chip>
+                        <ServiceChip type={service} key={service} />
                     ))}
                 </View>
             </Paragpaph>
-
             <Paragpaph icon="account-group-outline" title="Masters">
                 <View style={{ marginLeft: -50, width: Dimensions.get('screen').width }}>
                     {localMasters.map((master) => (
@@ -83,9 +80,11 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
             </Paragpaph>
             <Paragpaph icon="comment-text-multiple-outline" title="Feedbacks">
                 {/*<Paragpaph icon="list-status" title="Feedbacks">*/}
-                {location.feedbacks.map((feedback) => (
-                    <LocationFeedbackInline key={feedback.id} feedback={feedback} />
-                ))}
+                <View style={{ marginLeft: -50, width: Dimensions.get('screen').width }}>
+                    {location.feedbacks.map((feedback) => (
+                        <FeedbackEntry key={feedback.id} feedback={feedback} />
+                    ))}
+                </View>
             </Paragpaph>
         </ScrollView>
     )

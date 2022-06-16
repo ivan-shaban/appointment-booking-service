@@ -4,14 +4,6 @@ import faker from '@faker-js/faker'
 import { createEffect, createStore } from 'effector'
 import shuffle from 'lodash.shuffle'
 
-export interface LocationFeedback {
-    readonly id: number
-    readonly title: string
-    readonly message: string
-    readonly rating: number
-    readonly date: string
-}
-
 export interface Location {
     readonly id: number
     readonly name: string
@@ -23,7 +15,7 @@ export interface Location {
     readonly tel: string[]
     readonly gallery: string[]
     readonly rating: number
-    readonly feedbacks: LocationFeedback[]
+    readonly feedbacks: Feedback[]
     /**
      * 7 days, max 3 breaks per day
      */

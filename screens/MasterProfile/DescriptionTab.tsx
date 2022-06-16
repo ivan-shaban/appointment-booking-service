@@ -6,6 +6,7 @@ import { Chip, Subheading } from 'react-native-paper'
 
 import { LocationItem } from '../../components/LocationItem'
 import { Paragpaph } from '../../components/Paragpaph'
+import { ServiceChip } from '../../components/ServiceChip'
 import { ClientType } from '../../constants/genders'
 import { locales } from '../../locales/masters'
 import { $locations } from '../../store/locations'
@@ -50,9 +51,7 @@ export const DescriptionTab: FC<Props> = function Description({ route }) {
             <Paragpaph icon="chair-rolling" title="Services">
                 <View style={styles.servicesContainer}>
                     {master.services.map((service) => (
-                        <Chip icon="plus-circle" style={styles.serviceChip} key={service}>
-                            {locales[service]}
-                        </Chip>
+                        <ServiceChip type={service} key={service} />
                     ))}
                 </View>
             </Paragpaph>
@@ -63,11 +62,6 @@ export const DescriptionTab: FC<Props> = function Description({ route }) {
                     </View>
                 </Paragpaph>
             )}
-
-            <Subheading style={styles.subtitle}>Мастер работает с:</Subheading>
-            <Subheading style={styles.subtitle}>Локация:</Subheading>
-            <Subheading style={styles.subtitle}>Услуги:</Subheading>
-            <Subheading style={styles.subtitle}>Цены:</Subheading>
         </ScrollView>
     )
 }

@@ -1,6 +1,6 @@
 import { ClientType, allGenders } from '../constants/genders'
 import { MasterType } from '../constants/masters'
-import { HairServices } from '../constants/services'
+import { HairServices, Service } from '../constants/services'
 import { delay } from '../utils/time'
 import faker from '@faker-js/faker'
 import { createEffect, createStore } from 'effector'
@@ -16,8 +16,6 @@ export const allMasterTypes = [
     MasterType.Cosmetic,
 ] as const
 
-export interface MasterFeedback {}
-
 export interface Master {
     readonly id: number
     readonly name: string
@@ -27,10 +25,10 @@ export interface Master {
     readonly gender: 'male' | 'female'
     readonly avatar?: string
     readonly locationId: number
-    readonly services: HairServices[]
+    readonly services: Service[]
     readonly worksWith: ClientType[]
     readonly rating: number
-    readonly feedbacks: MasterFeedback[]
+    readonly feedbacks: Feedback[]
 }
 
 export const requestAllMastersData = createEffect({
@@ -66,8 +64,14 @@ export const requestAllMastersData = createEffect({
                     .map((_, index) => shuffledGenders[index]),
                 rating: faker.datatype.number({ min: 30, max: 50 }) / 10,
                 feedbacks: faker.datatype
-                    .array(faker.datatype.number({ min: 0, max: 100 }))
-                    .map(() => ({})),
+                    .array(faker.datatype.number({ min: 0, max: 30 }))
+                    .map((_, index) => ({
+                        id: index,
+                        title: faker.random.words(faker.datatype.number({ min: 4, max: 20 })),
+                        message: faker.random.words(faker.datatype.number({ min: 20, max: 100 })),
+                        rating: faker.datatype.number({ min: 30, max: 50 }) / 10,
+                        date: faker.date.past(0).toISOString(),
+                    })),
             }
         })
     },

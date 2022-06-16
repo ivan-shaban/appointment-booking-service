@@ -15,6 +15,13 @@ declare global {
     }
 
     type Nullable<T> = null | T
+    interface Feedback {
+        readonly id: number
+        readonly title: string
+        readonly message: string
+        readonly rating: number
+        readonly date: string
+    }
 }
 
 export type RootStackParamList = {
