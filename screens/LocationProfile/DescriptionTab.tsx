@@ -1,8 +1,9 @@
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs/src/types'
 import React, { FC } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Chip, Paragraph, Subheading } from 'react-native-paper'
 
+import { ScrollView } from '../../components/Themed'
 import { ClientType } from '../../constants/genders'
 import { locales } from '../../locales/masters'
 import { MasterProfileTabParamList } from '../../types'

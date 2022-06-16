@@ -1,7 +1,8 @@
 import { useStore } from 'effector-react'
-import { ScrollView, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { LocationItem } from '../components/LocationItem'
+import { ScrollView } from '../components/Themed'
 import { Tab } from '../constants/Tab'
 import { $locations } from '../store/locations'
 import { RootTabScreenProps } from '../types'

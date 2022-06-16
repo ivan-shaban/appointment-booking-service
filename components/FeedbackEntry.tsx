@@ -3,15 +3,16 @@ import React, { FC, memo } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Caption } from 'react-native-paper'
 
-import faker from '@faker-js/faker'
+import { RatingEntry } from './RatingEntry'
+import { useThemeColor } from './Themed'
 import moment from 'moment'
 
 export interface Props {
     readonly feedback: Feedback
 }
 
-export const FeedbackEntry: FC<Props> = memo(function LocationFeedbackInline({ feedback }) {
-    const roundedRating = Math.round(feedback.rating)
+export const FeedbackEntry: FC<Props> = memo(function FeedbackEntry({ feedback }) {
+    const color = useThemeColor({}, 'text')
 
     return (
         <View style={styles.base}>
@@ -19,24 +20,15 @@ export const FeedbackEntry: FC<Props> = memo(function LocationFeedbackInline({ f
                 style={styles.icon}
                 size={16}
                 name="comment-text-outline"
-                color="white"
+                color={color}
             />
             <View style={styles.content}>
-                <Caption style={styles.title}>{feedback.title}</Caption>
+                <Caption style={[styles.title, { color }]}>{feedback.title}</Caption>
                 <Caption>
                     {moment(feedback.date).format('YYYY.MM.DD, hh:mm')} /{' '}
-                    {faker.datatype.array(5).map((_m, index) => (
-                        <MaterialCommunityIcons
-                            style={styles.icon}
-                            size={12}
-                            name="star"
-                            color={index + 1 <= roundedRating ? 'gold' : 'white'}
-                            key={index}
-                        />
-                    ))}{' '}
-                    ({feedback.rating})
+                    <RatingEntry rating={feedback.rating} single={true} />
                 </Caption>
-                <Caption style={styles.message}>{feedback.message}</Caption>
+                <Caption style={{ color }}>{feedback.message}</Caption>
             </View>
         </View>
     )
@@ -50,11 +42,10 @@ const styles = StyleSheet.create({
         // backgroundColor: 'green',
     },
     content: { flex: 1 },
-    title: { fontWeight: 'bold', color: 'white', fontSize: 12 },
+    title: { fontWeight: 'bold', fontSize: 12 },
     icon: {
         marginLeft: 16,
         marginRight: 8,
         marginTop: 6,
     },
-    message: { color: 'white' },
 })

@@ -3,15 +3,15 @@ import { useNavigation } from '@react-navigation/native'
 import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, Badge, Headline, Text } from 'react-native-paper'
+import { Avatar, Headline, Text } from 'react-native-paper'
 
 import { colorByTab } from '../constants/Colors'
 import { Tab } from '../constants/Tab'
 import { Location } from '../store/locations'
 import { $masters } from '../store/masters'
 import { $currentUser } from '../store/user'
-import { View as ThemedView } from './Themed'
-import faker from '@faker-js/faker'
+import { RatingEntry } from './RatingEntry'
+import { View as ThemedView, useThemeColor } from './Themed'
 
 export interface Props {
     readonly location: Location
@@ -22,7 +22,7 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
     const masters = useStore($masters).filter(({ locationId }) => locationId === location.id)
     const isFavourite = currentUser?.favourite.locations.includes(location.id)
     const navigation = useNavigation()
-    const roundedRating = Math.round(location.rating)
+    const backgroundColor = useThemeColor({}, 'background')
 
     const handleOpenDetails = useCallback(() => {
         navigation.navigate('LocationProfile', { id: location.id })
@@ -37,9 +37,11 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
                         style={styles.mastersBadgeIcon}
                         size={16}
                         name="account-group-outline"
-                        color="white"
+                        color={backgroundColor}
                     />
-                    <Text style={styles.mastersBadgeText}>{masters.length}</Text>
+                    <Text style={[styles.mastersBadgeText, { color: backgroundColor }]}>
+                        {masters.length}
+                    </Text>
                 </View>
                 <View>
                     <Headline
@@ -54,21 +56,10 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
                     >
                         {location.address}
                     </Text>
-                    {location.feedbacks.length ? (
-                        <Text>
-                            {faker.datatype.array(5).map((_m, index) => (
-                                <MaterialCommunityIcons
-                                    size={12}
-                                    name="star"
-                                    color={index + 1 <= roundedRating ? 'gold' : 'white'}
-                                    key={index}
-                                />
-                            ))}
-                            {` ${location.rating} (${location.feedbacks.length})`}
-                        </Text>
-                    ) : (
-                        <Text>No rating, be first user!</Text>
-                    )}
+                    <RatingEntry
+                        rating={location.rating}
+                        feedbacksCount={location.feedbacks.length}
+                    />
                 </View>
                 {isFavourite && (
                     <MaterialCommunityIcons
@@ -107,7 +98,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         top: 15,
         left: 15,
-        color: 'white',
         backgroundColor: colorByTab[Tab.Masters],
     },
     mastersBadgeIcon: {
@@ -115,13 +105,6 @@ const styles = StyleSheet.create({
     },
     mastersBadgeText: {
         fontSize: 12,
-    },
-    feedbackBadge: {
-        position: 'absolute',
-        top: 40,
-        left: 45,
-        color: 'white',
-        backgroundColor: 'red',
     },
     favourite: {
         marginLeft: 'auto',

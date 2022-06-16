@@ -1,27 +1,26 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useStore } from 'effector-react'
 import React from 'react'
-import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native'
-import { Subheading, Text } from 'react-native-paper'
+import { Dimensions, Image, StyleSheet, View } from 'react-native'
+import { Subheading } from 'react-native-paper'
 
 import { FeedbackEntry } from '../../components/FeedbackEntry'
 import { MasterItem } from '../../components/MasterItem'
 import { Paragpaph } from '../../components/Paragpaph'
 import { PhoneRecord } from '../../components/PhoneRecord'
+import { RatingEntry } from '../../components/RatingEntry'
 import { Schedule } from '../../components/Schedule'
 import { ServiceChip } from '../../components/ServiceChip'
+import { ScrollView } from '../../components/Themed'
 import { Service } from '../../constants/services'
 import { $locations } from '../../store/locations'
 import { $masters } from '../../store/masters'
 import { RootStackScreenProps } from '../../types'
-import faker from '@faker-js/faker'
 
 export function LocationProfile({ navigation, route }: RootStackScreenProps<'LocationProfile'>) {
     const masters = useStore($masters)
     const locations = useStore($locations)
     const location = locations.find(({ id }) => id === route.params.id)!
     const localMasters = masters.filter(({ locationId }) => locationId === route.params.id)!
-    const roundedRating = Math.round(location.rating)
 
     // const [fabOpen, setFabOpen] = useState(false)
     //
@@ -31,19 +30,7 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
         <ScrollView style={styles.base} showsVerticalScrollIndicator={true}>
             <Image style={styles.gallery} source={{ uri: location.gallery[0] }} />
             <Paragpaph icon="image-text" title={location.name}>
-                {location.feedbacks.length && (
-                    <Text>
-                        {faker.datatype.array(5).map((_m, index) => (
-                            <MaterialCommunityIcons
-                                size={12}
-                                name="star"
-                                color={index + 1 <= roundedRating ? 'gold' : 'white'}
-                                key={index}
-                            />
-                        ))}
-                        {` ${location.rating} (${location.feedbacks.length})`}
-                    </Text>
-                )}
+                <RatingEntry rating={location.rating} feedbacksCount={location.feedbacks.length} />
                 <Subheading>{location.description}</Subheading>
             </Paragpaph>
             <Paragpaph icon="map-outline" title="Address">
@@ -97,10 +84,6 @@ const styles = StyleSheet.create({
     gallery: {
         width: Dimensions.get('window').width,
         height: 250,
-    },
-    feedbackBadge: {
-        marginTop: 5,
-        marginRight: 50,
     },
     favouriteButton: {
         position: 'absolute',

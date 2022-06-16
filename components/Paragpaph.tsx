@@ -3,7 +3,7 @@ import React, { FC, memo } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 import { Title } from 'react-native-paper'
 
-import { View } from './Themed'
+import { View, useThemeColor } from './Themed'
 
 export interface Props {
     readonly icon: string
@@ -11,10 +11,12 @@ export interface Props {
 }
 
 export const Paragpaph: FC<Props> = memo(function Paragpaph({ icon, title, children }) {
+    const iconColor = useThemeColor({}, 'text')
+
     return (
         <View style={styles.base}>
             {/* @ts-ignore */}
-            <MaterialCommunityIcons style={styles.icon} name={icon} size={20} color="white" />
+            <MaterialCommunityIcons style={styles.icon} name={icon} size={20} color={iconColor} />
             <View style={styles.content}>
                 <Title>{title}</Title>
                 {children}

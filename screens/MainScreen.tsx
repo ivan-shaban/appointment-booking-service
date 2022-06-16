@@ -1,6 +1,6 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import React, { FC, memo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { colorByTab } from '../constants/Colors'
 import { Tab } from '../constants/Tab'

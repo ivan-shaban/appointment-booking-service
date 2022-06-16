@@ -8,8 +8,8 @@ import { Avatar, Headline, Text } from 'react-native-paper'
 import { locales } from '../locales/masters'
 import { Master } from '../store/masters'
 import { $currentUser } from '../store/user'
+import { RatingEntry } from './RatingEntry'
 import { View as ThemedView } from './Themed'
-import faker from '@faker-js/faker'
 
 export interface Props {
     readonly master: Master
@@ -19,7 +19,6 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
     const navigation = useNavigation()
     const currentUser = useStore($currentUser)
     const isFavourite = currentUser?.favourite.masters.includes(master.id)
-    const roundedRating = Math.round(master.rating)
 
     const handleOpenProfile = useCallback(() => {
         navigation.navigate('MasterProfile', {
@@ -45,22 +44,10 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
                     </Headline>
                     <Text>
                         {master.type.map((type) => locales[type]).join(', ')},{' '}
-                        {master.feedbacks.length
-                            ? faker.datatype
-                                  .array(5)
-                                  .map((_m, index) => (
-                                      <MaterialCommunityIcons
-                                          style={styles.icon}
-                                          size={12}
-                                          name="star"
-                                          color={index + 1 <= roundedRating ? 'gold' : 'white'}
-                                          key={index}
-                                      />
-                                  ))
-                            : null}
-                        {master.feedbacks.length
-                            ? ` ${master.rating} (${master.feedbacks.length})`
-                            : null}
+                        <RatingEntry
+                            rating={master.rating}
+                            feedbacksCount={master.feedbacks.length}
+                        />
                     </Text>
                 </View>
                 {isFavourite && (
@@ -89,13 +76,6 @@ const styles = StyleSheet.create({
         marginRight: 16,
     },
     reducedText: { width: Dimensions.get('screen').width - 85 },
-    feedbackBadge: {
-        position: 'absolute',
-        top: 40,
-        left: 45,
-        color: 'white',
-        backgroundColor: 'red',
-    },
     favourite: {
         marginLeft: 'auto',
     },
