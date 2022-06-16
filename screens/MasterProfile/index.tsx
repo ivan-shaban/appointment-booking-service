@@ -81,7 +81,7 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
             <FAB.Group
                 open={fabOpen}
                 icon={fabOpen ? 'arrow-left-circle' : 'plus'}
-                color={fabOpen ? 'white' : colorByTab[Tab.Masters]}
+                color="white"
                 actions={[
                     {
                         icon: 'calendar-today',

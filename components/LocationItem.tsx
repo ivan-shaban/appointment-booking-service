@@ -11,7 +11,7 @@ import { Location } from '../store/locations'
 import { $masters } from '../store/masters'
 import { $currentUser } from '../store/user'
 import { RatingEntry } from './RatingEntry'
-import { View as ThemedView, useThemeColor } from './Themed'
+import { View as ThemedView } from './Themed'
 
 export interface Props {
     readonly location: Location
@@ -22,7 +22,6 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
     const masters = useStore($masters).filter(({ locationId }) => locationId === location.id)
     const isFavourite = currentUser?.favourite.locations.includes(location.id)
     const navigation = useNavigation()
-    const backgroundColor = useThemeColor({}, 'background')
 
     const handleOpenDetails = useCallback(() => {
         navigation.navigate('LocationProfile', { id: location.id })
@@ -37,11 +36,9 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
                         style={styles.mastersBadgeIcon}
                         size={16}
                         name="account-group-outline"
-                        color={backgroundColor}
+                        color="white"
                     />
-                    <Text style={[styles.mastersBadgeText, { color: backgroundColor }]}>
-                        {masters.length}
-                    </Text>
+                    <Text style={styles.mastersBadgeText}>{masters.length}</Text>
                 </View>
                 <View>
                     <Headline
@@ -105,6 +102,7 @@ const styles = StyleSheet.create({
     },
     mastersBadgeText: {
         fontSize: 12,
+        color: 'white',
     },
     favourite: {
         marginLeft: 'auto',
