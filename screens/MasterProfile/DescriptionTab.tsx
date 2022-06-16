@@ -1,11 +1,14 @@
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs/src/types'
+import { useStore } from 'effector-react'
 import React, { FC } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
 import { Chip, Subheading } from 'react-native-paper'
 
+import { LocationItem } from '../../components/LocationItem'
 import { Paragpaph } from '../../components/Paragpaph'
 import { ClientType } from '../../constants/genders'
 import { locales } from '../../locales/masters'
+import { $locations } from '../../store/locations'
 import { MasterProfileTabParamList } from '../../types'
 
 export interface Props
@@ -13,6 +16,7 @@ export interface Props
 
 export const DescriptionTab: FC<Props> = function Description({ route }) {
     const { master } = route.params
+    const location = useStore($locations).find(({ id }) => id === master.locationId)
 
     return (
         <ScrollView style={styles.base}>
@@ -52,6 +56,14 @@ export const DescriptionTab: FC<Props> = function Description({ route }) {
                     ))}
                 </View>
             </Paragpaph>
+            {location && (
+                <Paragpaph icon="map-marker-outline" title="Location">
+                    <View style={styles.pContent}>
+                        <LocationItem location={location} key={location.id} />
+                    </View>
+                </Paragpaph>
+            )}
+
             <Subheading style={styles.subtitle}>Мастер работает с:</Subheading>
             <Subheading style={styles.subtitle}>Локация:</Subheading>
             <Subheading style={styles.subtitle}>Услуги:</Subheading>
@@ -97,4 +109,5 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginRight: 8,
     },
+    pContent: { marginLeft: -50, width: Dimensions.get('screen').width },
 })
