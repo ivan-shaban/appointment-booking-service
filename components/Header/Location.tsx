@@ -1,15 +1,17 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack'
+import { useStore } from 'effector-react'
 import React, { FC } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { Appbar } from 'react-native-paper'
 
-import { locations } from '../../datas/locations'
+import { $locations } from '../../store/locations'
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
 
 export interface Props extends NativeStackHeaderProps {}
 
 export const Location: FC<Props> = ({ options, back, navigation, route }) => {
+    const locations = useStore($locations)
     // @ts-ignore
     const location = locations.find(({ id }) => id === route.params.id)!
 

@@ -7,12 +7,14 @@ import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/n
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 import { Tab } from './constants/Tab'
-import { Master } from './datas/masters'
+import { Master } from './store/masters'
 
 declare global {
     namespace ReactNavigation {
         interface RootParamList extends RootStackParamList {}
     }
+
+    type Nullable<T> = null | T
 }
 
 export type RootStackParamList = {

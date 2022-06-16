@@ -1,3 +1,4 @@
+import { useStore } from 'effector-react'
 import React from 'react'
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native'
 import { Divider, Subheading } from 'react-native-paper'
@@ -7,12 +8,13 @@ import { MasterItem } from '../../components/MasterItem'
 import { Paragpaph } from '../../components/Paragpaph'
 import { PhoneRecord } from '../../components/PhoneRecord'
 import { Schedule } from '../../components/Schedule'
-import { locations } from '../../datas/locations'
-import { masters } from '../../datas/masters'
+import { $locations } from '../../store/locations'
+import { $masters } from '../../store/masters'
 import { RootStackScreenProps } from '../../types'
-import faker from '@faker-js/faker'
 
 export function LocationProfile({ navigation, route }: RootStackScreenProps<'LocationProfile'>) {
+    const masters = useStore($masters)
+    const locations = useStore($locations)
     const location = locations.find(({ id }) => id === route.params.id)!
     const localMasters = masters.filter(({ locationId }) => locationId === route.params.id)!
 

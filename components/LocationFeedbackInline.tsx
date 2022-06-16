@@ -3,7 +3,7 @@ import React, { FC, memo } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Subheading } from 'react-native-paper'
 
-import { LocationFeedback } from '../datas/locations'
+import { LocationFeedback } from '../store/locations'
 
 export interface Props {
     feedback: LocationFeedback

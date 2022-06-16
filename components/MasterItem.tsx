@@ -1,12 +1,13 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
-import { Dimensions, GestureResponderEvent, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, Badge, Divider, Headline, Text } from 'react-native-paper'
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Avatar, Badge, Headline, Text } from 'react-native-paper'
 
-import { locations } from '../datas/locations'
-import { Master } from '../datas/masters'
 import { locales } from '../locales/masters'
+import { Master } from '../store/masters'
+import { $currentUser } from '../store/user'
 
 export interface Props {
     readonly master: Master
@@ -15,7 +16,8 @@ export interface Props {
 const screenWidth = Dimensions.get('window').width
 export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
     const navigation = useNavigation()
-    const location = locations.find(({ id }) => id === master.locationId)!
+    const currentUser = useStore($currentUser)
+    const isFavouriteMaster = currentUser?.favourite.masters.includes(master.id)
 
     const handleOpenProfile = useCallback(() => {
         navigation.navigate('MasterProfile', {
@@ -25,42 +27,33 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
         })
     }, [master])
 
-    const handleAddToFavourites = useCallback((event: GestureResponderEvent) => {
-        event.stopPropagation()
-        console.log(`>> favourite ${master.name}!`)
-    }, [])
-
     return (
-        <>
-            <TouchableOpacity onPress={handleOpenProfile}>
-                <View style={styles.base}>
-                    <Avatar.Image
-                        style={styles.avatar}
-                        size={40}
-                        source={{
-                            uri: master.avatar,
-                        }}
-                    />
-                    {!!master.feedbacks.length && (
-                        <Badge style={styles.feedbackBadge}>{master.feedbacks.length}</Badge>
-                    )}
-                    <View>
-                        <Headline>{master.name}</Headline>
-                        <Text>{master.type.map((type) => locales[type]).join(', ')}</Text>
-                    </View>
-                    {master.isFavourite && (
-                        <TouchableOpacity style={styles.favourite} onPress={handleAddToFavourites}>
-                            <MaterialCommunityIcons
-                                size={24}
-                                name="cards-heart-outline"
-                                color={'white'}
-                            />
-                        </TouchableOpacity>
-                    )}
+        <TouchableOpacity onPress={handleOpenProfile}>
+            <View style={styles.base}>
+                <Avatar.Image
+                    style={styles.avatar}
+                    size={40}
+                    source={{
+                        uri: master.avatar,
+                    }}
+                />
+                {!!master.feedbacks.length && (
+                    <Badge style={styles.feedbackBadge}>{master.feedbacks.length}</Badge>
+                )}
+                <View>
+                    <Headline>{master.name}</Headline>
+                    <Text>{master.type.map((type) => locales[type]).join(', ')}</Text>
                 </View>
-            </TouchableOpacity>
-            <Divider />
-        </>
+                {isFavouriteMaster && (
+                    <MaterialCommunityIcons
+                        style={styles.favourite}
+                        size={24}
+                        name="cards-heart"
+                        color="red"
+                    />
+                )}
+            </View>
+        </TouchableOpacity>
     )
 })
 

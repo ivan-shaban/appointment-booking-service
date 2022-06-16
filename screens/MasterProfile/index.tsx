@@ -1,11 +1,18 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import React, { useState } from 'react'
+import { useStore } from 'effector-react'
+import React, { useCallback, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Avatar, Badge, FAB, IconButton, Title } from 'react-native-paper'
 
 import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
-import { Master, masters } from '../../datas/masters'
+import { $masters, Master } from '../../store/masters'
+import {
+    $currentUser,
+    $isFavouriteMasterRequestPending,
+    addFavouriteMasterFx,
+    removeFavouriteMasterFx,
+} from '../../store/user'
 import { RootStackScreenProps } from '../../types'
 import { DescriptionTab } from './DescriptionTab'
 import { FeedbacksTab } from './FeedbacksTab'
@@ -16,10 +23,17 @@ const TabsTop = createMaterialTopTabNavigator<{
 }>()
 
 export function MasterProfile({ navigation, route }: RootStackScreenProps<'MasterProfile'>) {
+    const currentUser = useStore($currentUser)
+    const isFavouriteMasterRequestPending = useStore($isFavouriteMasterRequestPending)
+    const masters = useStore($masters)
     const master = masters.find(({ id }) => id === route.params.id)!
+    const isFavouriteMaster = currentUser?.favourite.masters.includes(master.id)
     const [fabOpen, setFabOpen] = useState(false)
 
-    const onStateChange = ({ open }) => setFabOpen(open)
+    const onStateChange = ({ open }: { open: boolean }) => setFabOpen(open)
+    const handleFavouritePress = useCallback(() => {
+        isFavouriteMaster ? removeFavouriteMasterFx(master.id) : addFavouriteMasterFx(master.id)
+    }, [master, isFavouriteMaster])
 
     return (
         <View style={styles.base}>
@@ -33,10 +47,11 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                 />
                 <IconButton
                     style={styles.favouriteButton}
-                    icon={master.isFavourite ? 'cards-heart' : 'cards-heart-outline'}
+                    icon={isFavouriteMaster ? 'cards-heart' : 'cards-heart-outline'}
                     color={colorByTab[Tab.Favourite]}
                     size={40}
-                    onPress={() => console.log('Favourite Pressed')}
+                    disabled={isFavouriteMasterRequestPending}
+                    onPress={handleFavouritePress}
                 />
                 <Title>{master.name}</Title>
             </View>

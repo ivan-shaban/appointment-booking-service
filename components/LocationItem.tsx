@@ -1,16 +1,20 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
 import { GestureResponderEvent, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Avatar, Badge, Divider, Headline, Text } from 'react-native-paper'
 
-import { Location } from '../datas/locations'
+import { Location } from '../store/locations'
+import { $currentUser } from '../store/user'
 
 export interface Props {
     readonly location: Location
 }
 
 export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
+    const currentUser = useStore($currentUser)
+    const isFavouriteLocation = currentUser?.favourite.locations.includes(location.id)
     const navigation = useNavigation()
 
     const handleOpenDetails = useCallback(() => {
@@ -37,7 +41,7 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
                         <Headline>{location.name}</Headline>
                         <Text>{location.address}</Text>
                     </View>
-                    {location.isFavourite && (
+                    {isFavouriteLocation && (
                         <TouchableOpacity style={styles.favourite} onPress={handleAddToFavourites}>
                             <MaterialCommunityIcons
                                 size={24}
