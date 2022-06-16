@@ -1,7 +1,6 @@
 import { requestAllLocationsData } from './locations'
-import { requestInitialData, requestPermissions } from './main'
+import { requestInitialData } from './main'
 import { requestAllMastersData } from './masters'
-import { requestPhoneCallPermissionFx } from './permissions'
 import { requestUserDataFx } from './user'
 import { combine, sample } from 'effector'
 
@@ -25,7 +24,7 @@ sample({
     target: [requestUserDataFx, requestAllMastersData, requestAllLocationsData],
 })
 
-sample({
-    source: requestPermissions,
-    target: [requestPhoneCallPermissionFx],
-})
+// sample({
+//     source: requestPermissions,
+//     target: [requestPhoneCallPermissionFx],
+// })
