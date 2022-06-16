@@ -1,7 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { FC, memo } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
-import { Avatar, Title } from 'react-native-paper'
+import { Dimensions, StyleSheet } from 'react-native'
+import { Title } from 'react-native-paper'
+
+import { View } from './Themed'
 
 export interface Props {
     readonly icon: string
@@ -11,7 +13,8 @@ export interface Props {
 export const Paragpaph: FC<Props> = memo(function Paragpaph({ icon, title, children }) {
     return (
         <View style={styles.base}>
-            <Avatar.Icon style={styles.icon} icon={icon} size={32} />
+            {/* @ts-ignore */}
+            <MaterialCommunityIcons style={styles.icon} name={icon} size={20} color="white" />
             <View style={styles.content}>
                 <Title>{title}</Title>
                 {children}
@@ -22,12 +25,12 @@ export const Paragpaph: FC<Props> = memo(function Paragpaph({ icon, title, child
 
 const styles = StyleSheet.create({
     base: {
-        marginVertical: 8,
         flexDirection: 'row',
     },
     icon: {
-        marginTop: 8,
-        marginHorizontal: 16,
+        marginTop: 14,
+        marginLeft: 16,
+        marginRight: 8,
     },
     content: {
         width: Dimensions.get('screen').width - (64 + 16),

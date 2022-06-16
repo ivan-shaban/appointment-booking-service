@@ -1,7 +1,7 @@
 import { useStore } from 'effector-react'
 import React from 'react'
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native'
-import { Divider, Subheading } from 'react-native-paper'
+import { Subheading } from 'react-native-paper'
 
 import { LocationFeedbackInline } from '../../components/LocationFeedbackInline'
 import { MasterItem } from '../../components/MasterItem'
@@ -28,44 +28,37 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
             <Paragpaph icon="image-text" title={location.name}>
                 <Subheading>{location.description}</Subheading>
             </Paragpaph>
-            <Divider />
             <Paragpaph icon="map-outline" title="Address">
                 <Subheading>{location.address}</Subheading>
             </Paragpaph>
-            <Divider />
             <Paragpaph icon="phone-outline" title="Contacts">
                 {location.tel.map((tel) => (
                     <PhoneRecord key={tel} phone={tel} />
                 ))}
             </Paragpaph>
-            <Divider />
             <Paragpaph icon="clock-outline" title="Schedule">
                 {location.schedules.map((schedule, index) => (
                     <Schedule key={index} value={schedule} index={index} />
                 ))}
             </Paragpaph>
-            <Divider />
             <Paragpaph icon="currency-usd" title="Service">
                 {location.tel.map((tel) => (
                     <Subheading key={tel}>{tel}</Subheading>
                 ))}
             </Paragpaph>
-            <Divider />
             <Paragpaph icon="account-group-outline" title="Masters">
-                <View style={{ marginLeft: -50 }}>
+                <View style={{ marginLeft: -50, width: Dimensions.get('screen').width }}>
                     {localMasters.map((master) => (
                         <MasterItem master={master} key={master.id} />
                     ))}
                 </View>
             </Paragpaph>
-            <Divider />
             <Paragpaph icon="comment-text-multiple-outline" title="Feedbacks">
                 {/*<Paragpaph icon="list-status" title="Feedbacks">*/}
                 {location.feedbacks.map((feedback) => (
                     <LocationFeedbackInline key={feedback.id} feedback={feedback} />
                 ))}
             </Paragpaph>
-            <Divider />
         </ScrollView>
     )
 }

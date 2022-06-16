@@ -2,18 +2,18 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import { Avatar, Badge, Headline, Text } from 'react-native-paper'
 
 import { locales } from '../locales/masters'
 import { Master } from '../store/masters'
 import { $currentUser } from '../store/user'
+import { View } from './Themed'
 
 export interface Props {
     readonly master: Master
 }
 
-const screenWidth = Dimensions.get('window').width
 export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
     const navigation = useNavigation()
     const currentUser = useStore($currentUser)
@@ -41,7 +41,9 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
                     <Badge style={styles.feedbackBadge}>{master.feedbacks.length}</Badge>
                 )}
                 <View>
-                    <Headline>{master.name}</Headline>
+                    <Headline numberOfLines={1} style={styles.reducedText}>
+                        {master.name}
+                    </Headline>
                     <Text>{master.type.map((type) => locales[type]).join(', ')}</Text>
                 </View>
                 {isFavouriteMaster && (
@@ -59,7 +61,6 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
 
 const styles = StyleSheet.create({
     base: {
-        width: screenWidth,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
@@ -70,10 +71,13 @@ const styles = StyleSheet.create({
     avatar: {
         marginRight: 16,
     },
+    reducedText: { width: Dimensions.get('screen').width - 85 },
     feedbackBadge: {
         position: 'absolute',
         top: 40,
         left: 45,
+        color: 'white',
+        backgroundColor: 'red',
     },
     favourite: {
         marginLeft: 'auto',

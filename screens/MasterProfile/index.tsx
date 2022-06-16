@@ -1,9 +1,10 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useStore } from 'effector-react'
 import React, { useCallback, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Avatar, Badge, FAB, IconButton, Title } from 'react-native-paper'
 
+import { View } from '../../components/Themed'
 import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
 import { $masters, Master } from '../../store/masters'
@@ -136,6 +137,8 @@ const styles = StyleSheet.create({
     feedbackBadge: {
         marginTop: 5,
         marginRight: 50,
+        color: 'white',
+        backgroundColor: 'red',
     },
     favouriteButton: {
         position: 'absolute',
