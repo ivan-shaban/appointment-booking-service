@@ -1,28 +1,26 @@
 import React, { FC, memo } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 import { Subheading } from 'react-native-paper'
 
-export const dayLocales = [
-    'Понедельник',
-    'Вторник',
-    'Среды',
-    'Четверг',
-    'Пятница',
-    'Суббота',
-    'Воскресенье',
-]
+import { daysLocale } from '../locales/days'
+
 export interface Props {
     readonly index: number
     readonly value: Array<[string, string]> | false
 }
 
 export const Schedule: FC<Props> = memo(function Schedule({ value, index }) {
+    const intl = useIntl()
     return (
         <View style={styles.base}>
-            <Subheading>{dayLocales[index]}</Subheading>
+            {/* @ts-ignore*/}
+            <Subheading>{intl.formatMessage(daysLocale[`day${index}`])}</Subheading>
             <View style={styles.hours}>
                 {!value ? (
-                    <Subheading>Выходной</Subheading>
+                    <Subheading>
+                        <FormattedMessage id="day.holiday" />
+                    </Subheading>
                 ) : (
                     value.map(([start, end]) => (
                         <Subheading key={`${start}-${end}`}>

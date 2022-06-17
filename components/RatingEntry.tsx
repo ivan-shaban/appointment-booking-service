@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { FC, memo } from 'react'
+import { FormattedMessage } from 'react-intl'
 import { StyleSheet } from 'react-native'
 import { Text } from 'react-native-paper'
 
@@ -34,7 +35,9 @@ export const RatingEntry: FC<Props> = memo(function RatingEntry({
             {single ? null : ` (${feedbacksCount})`}
         </Text>
     ) : (
-        <Text>No rating, be first user!</Text>
+        <Text>
+            <FormattedMessage id="rating.no-rating" defaultMessage="Оценок еще нет, будь первым!" />
+        </Text>
     )
 })
 

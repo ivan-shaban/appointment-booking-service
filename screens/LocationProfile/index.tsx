@@ -12,7 +12,10 @@ import { RatingEntry } from '../../components/RatingEntry'
 import { Schedule } from '../../components/Schedule'
 import { ServiceChip } from '../../components/ServiceChip'
 import { ScrollView } from '../../components/Themed'
+import { Tab } from '../../constants/Tab'
 import { Service } from '../../constants/services'
+import { menuLocale } from '../../locales/menu'
+import { subheadersLocale } from '../../locales/subheaders'
 import { $locations } from '../../store/locations'
 import { $masters } from '../../store/masters'
 import { RootStackScreenProps } from '../../types'
@@ -35,20 +38,20 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                 <LocationWorkStatus location={location} />
                 <Subheading>{location.description}</Subheading>
             </Paragpaph>
-            <Paragpaph icon="map-outline" title="Address">
+            <Paragpaph icon="map-outline" title={subheadersLocale.address}>
                 <Subheading>{location.address}</Subheading>
             </Paragpaph>
-            <Paragpaph icon="phone-outline" title="Contacts">
+            <Paragpaph icon="phone-outline" title={subheadersLocale.contacts}>
                 {location.tel.map((tel) => (
                     <PhoneRecord key={tel} phone={tel} />
                 ))}
             </Paragpaph>
-            <Paragpaph icon="clock-outline" title="Schedule">
+            <Paragpaph icon="clock-outline" title={subheadersLocale.schedule}>
                 {location.schedules.map((schedule, index) => (
                     <Schedule key={index} value={schedule} index={index} />
                 ))}
             </Paragpaph>
-            <Paragpaph icon="chair-rolling" title="Services">
+            <Paragpaph icon="chair-rolling" title={subheadersLocale.services}>
                 <View style={styles.servicesContainer}>
                     {Array.from(
                         localMasters.reduce((result, master) => {
@@ -60,16 +63,16 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                     ))}
                 </View>
             </Paragpaph>
-            <Paragpaph icon="account-group-outline" title="Masters">
-                <View style={{ marginLeft: -50, width: Dimensions.get('screen').width }}>
+            <Paragpaph icon="account-group-outline" title={menuLocale[Tab.Masters]}>
+                <View style={styles.pContent}>
                     {localMasters.map((master) => (
                         <MasterItem master={master} key={master.id} />
                     ))}
                 </View>
             </Paragpaph>
-            <Paragpaph icon="comment-text-multiple-outline" title="Feedbacks">
-                {/*<Paragpaph icon="list-status" title="Feedbacks">*/}
-                <View style={{ marginLeft: -50, width: Dimensions.get('screen').width }}>
+            {/*<Paragpaph icon="list-status" title="Feedbacks">*/}
+            <Paragpaph icon="comment-text-multiple-outline" title={subheadersLocale.feedbacks}>
+                <View style={styles.pContent}>
                     {location.feedbacks.map((feedback) => (
                         <FeedbackEntry key={feedback.id} feedback={feedback} />
                     ))}
@@ -103,4 +106,5 @@ const styles = StyleSheet.create({
         marginRight: 8,
         padding: 0,
     },
+    pContent: { marginLeft: -50, width: Dimensions.get('screen').width },
 })

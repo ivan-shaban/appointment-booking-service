@@ -2,10 +2,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
+import { useIntl } from 'react-intl'
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Avatar, Headline, Text } from 'react-native-paper'
 
-import { locales } from '../locales/masters'
+import { mastersLocale } from '../locales/masters'
 import { Master } from '../store/masters'
 import { $currentUser } from '../store/user'
 import { RatingEntry } from './RatingEntry'
@@ -16,6 +17,7 @@ export interface Props {
 }
 
 export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
+    const intl = useIntl()
     const navigation = useNavigation()
     const currentUser = useStore($currentUser)
     const isFavourite = currentUser?.favourite.masters.includes(master.id)
@@ -43,7 +45,10 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
                         {master.name}
                     </Headline>
                     <Text>
-                        {master.type.map((type) => locales[type]).join(', ')},{' '}
+                        {master.type
+                            .map((type) => intl.formatMessage(mastersLocale[type]))
+                            .join(', ')}
+                        ,{' '}
                         <RatingEntry
                             rating={master.rating}
                             feedbacksCount={master.feedbacks.length}

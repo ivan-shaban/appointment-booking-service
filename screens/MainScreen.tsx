@@ -1,9 +1,11 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import React, { FC, memo } from 'react'
+import { useIntl } from 'react-intl'
 import { StyleSheet } from 'react-native'
 
 import { colorByTab } from '../constants/Colors'
 import { Tab } from '../constants/Tab'
+import { menuLocale } from '../locales/menu'
 import { RootTabParamList } from '../types'
 import { FavouriteScreen } from './FavouriteScreen'
 import { LocationsScreen } from './LocationsScreen'
@@ -15,6 +17,8 @@ const BottomTab = createMaterialBottomTabNavigator<RootTabParamList>()
 export interface Props {}
 
 export const MainScreen: FC<Props> = memo(function MainScreen(props) {
+    const intl = useIntl()
+
     return (
         <BottomTab.Navigator
             initialRouteName={Tab.Locations}
@@ -26,7 +30,7 @@ export const MainScreen: FC<Props> = memo(function MainScreen(props) {
                 name={Tab.Masters}
                 component={MastersScreen}
                 options={{
-                    title: 'Masters',
+                    title: intl.formatMessage(menuLocale[Tab.Masters]),
                     tabBarIcon: 'account-group-outline',
                     tabBarBadge: 2,
                     tabBarColor: colorByTab[Tab.Masters],
@@ -36,7 +40,7 @@ export const MainScreen: FC<Props> = memo(function MainScreen(props) {
                 name={Tab.Locations}
                 component={LocationsScreen}
                 options={{
-                    title: 'Locations',
+                    title: intl.formatMessage(menuLocale[Tab.Locations]),
                     tabBarIcon: 'map-marker-multiple-outline',
                     tabBarColor: colorByTab[Tab.Locations],
                 }}
@@ -45,7 +49,7 @@ export const MainScreen: FC<Props> = memo(function MainScreen(props) {
                 name={Tab.Favourite}
                 component={FavouriteScreen}
                 options={{
-                    title: 'Favourite',
+                    title: intl.formatMessage(menuLocale[Tab.Favourite]),
                     tabBarIcon: 'cards-heart-outline',
                     tabBarColor: colorByTab[Tab.Favourite],
                 }}
@@ -54,7 +58,7 @@ export const MainScreen: FC<Props> = memo(function MainScreen(props) {
                 name={Tab.Profile}
                 component={ProfileScreen}
                 options={{
-                    title: 'Profile',
+                    title: intl.formatMessage(menuLocale[Tab.Profile]),
                     tabBarIcon: 'account',
                     tabBarColor: colorByTab[Tab.Profile],
                 }}

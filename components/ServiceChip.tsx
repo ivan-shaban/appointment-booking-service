@@ -1,9 +1,10 @@
 import React, { FC, memo } from 'react'
+import { useIntl } from 'react-intl'
 import { StyleSheet } from 'react-native'
 import { Chip } from 'react-native-paper'
 
 import { Service } from '../constants/services'
-import { locales } from '../locales/masters'
+import { servicesLocale } from '../locales/services'
 
 export interface Props {
     readonly type: Service
@@ -11,9 +12,11 @@ export interface Props {
 }
 
 export const ServiceChip: FC<Props> = memo(function ServiceChip({ type, duration }) {
+    const intl = useIntl()
+
     return (
         <Chip icon="plus-circle" style={styles.base} key={type}>
-            {locales[type]}
+            {intl.formatMessage(servicesLocale[type])}
             {duration ? `, ${duration}h` : null}
         </Chip>
     )

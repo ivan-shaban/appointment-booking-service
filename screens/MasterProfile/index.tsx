@@ -1,12 +1,16 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useStore } from 'effector-react'
 import React, { useCallback, useState } from 'react'
+import { useIntl } from 'react-intl'
 import { StyleSheet } from 'react-native'
 import { Avatar, Badge, FAB, IconButton, Title } from 'react-native-paper'
 
 import { View } from '../../components/Themed'
 import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
+import { actionsLocale } from '../../locales/actions'
+import { menuLocale } from '../../locales/menu'
+import { subheadersLocale } from '../../locales/subheaders'
 import { $masters, Master } from '../../store/masters'
 import {
     $currentUser,
@@ -24,6 +28,7 @@ const TabsTop = createMaterialTopTabNavigator<{
 }>()
 
 export function MasterProfile({ navigation, route }: RootStackScreenProps<'MasterProfile'>) {
+    const intl = useIntl()
     const currentUser = useStore($currentUser)
     const isFavouriteMasterRequestPending = useStore($isFavouriteMasterRequestPending)
     const masters = useStore($masters)
@@ -60,14 +65,14 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                 <TabsTop.Screen
                     name="Description"
                     component={DescriptionTab}
-                    options={{ title: 'Профиль' }}
+                    options={{ title: intl.formatMessage(menuLocale[Tab.Profile]) }}
                     initialParams={{ master }}
                 />
                 <TabsTop.Screen
                     name="Feedbacks"
                     component={FeedbacksTab}
                     options={{
-                        tabBarLabel: 'Отзывы',
+                        tabBarLabel: intl.formatMessage(subheadersLocale.feedbacks),
                         tabBarBadge: () =>
                             !!master.feedbacks.length && (
                                 <Badge style={styles.feedbackBadge}>
@@ -85,23 +90,23 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                 actions={[
                     {
                         icon: 'calendar-today',
-                        label: 'Записаться на ближайшее время',
+                        label: intl.formatMessage(actionsLocale.signUpSoon),
                         onPress: () => console.log('Pressed star'),
                     },
                     {
                         icon: 'calendar-search',
-                        label: 'Записаться на определенную дату',
+                        label: intl.formatMessage(actionsLocale.signUpAtDate),
                         onPress: () => console.log('Pressed email'),
                     },
                     {
                         icon: 'calendar-remove',
-                        label: 'Отменить запись',
+                        label: intl.formatMessage(actionsLocale.cancelRecord),
                         onPress: () => console.log('Pressed email'),
                     },
                     {
                         icon: 'comment-plus-outline',
                         // icon: 'comment-text',
-                        label: 'Оставить отзыв',
+                        label: intl.formatMessage(actionsLocale.leftFeedback),
                         onPress: () => console.log('Pressed email'),
                     },
                     // {

@@ -4,7 +4,16 @@ module.exports = function (api) {
         presets: ['babel-preset-expo'],
         env: {
             production: {
-                plugins: ['react-native-paper/babel'],
+                plugins: [
+                    'react-native-paper/babel',
+                    [
+                        'formatjs',
+                        {
+                            idInterpolationPattern: '[sha512:contenthash:base64:6]',
+                            ast: true,
+                        },
+                    ],
+                ],
             },
         },
     }
