@@ -11,7 +11,7 @@ const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
 
 export interface Props extends NativeStackHeaderProps {}
 
-export const Location: FC<Props> = ({ options, back, navigation, route }) => {
+export const LocationHeader: FC<Props> = ({ options, back, navigation, route }) => {
     const currentUser = useStore($currentUser)
     const locations = useStore($locations)
     // @ts-ignore

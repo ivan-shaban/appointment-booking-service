@@ -2,9 +2,9 @@ import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 import * as React from 'react'
 import { FC } from 'react'
 
-import { Location } from './Header/Location'
-import { Profile } from './Header/Profile'
-import { Root } from './Header/Root'
+import { LocationHeader } from './Header/LocationHeader'
+import { ProfileHeader } from './Header/ProfileHeader'
+import { RootHeader } from './Header/RootHeader'
 
 export const ScreenHeader: FC<NativeStackHeaderProps> = (props) => {
     const { options, back, navigation, route } = props
@@ -13,13 +13,13 @@ export const ScreenHeader: FC<NativeStackHeaderProps> = (props) => {
 
     switch (route.name) {
         case 'Root': {
-            return <Root {...props} />
+            return <RootHeader {...props} />
         }
         case 'MasterProfile': {
-            return <Profile {...props} />
+            return <ProfileHeader {...props} />
         }
         case 'LocationProfile': {
-            return <Location {...props} />
+            return <LocationHeader {...props} />
         }
         default: {
             console.log(`>> no header for this view: ${route.name}`)

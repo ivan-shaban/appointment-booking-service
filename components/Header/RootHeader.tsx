@@ -5,7 +5,7 @@ import { Appbar, Avatar } from 'react-native-paper'
 
 export interface Props extends NativeStackHeaderProps {}
 
-export const Root: FC<Props> = ({ navigation }) => {
+export const RootHeader: FC<Props> = ({ navigation }) => {
     return (
         <Appbar.Header style={styles.base}>
             <Appbar.Action icon="menu" onPress={() => {}} />

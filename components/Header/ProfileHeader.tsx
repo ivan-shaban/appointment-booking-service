@@ -11,7 +11,7 @@ const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
 
 export interface Props extends NativeStackHeaderProps {}
 
-export const Profile: FC<Props> = ({ options, back, navigation, route }) => {
+export const ProfileHeader: FC<Props> = ({ options, back, navigation, route }) => {
     const masters = useStore($masters)
     // @ts-ignore
     const master = masters.find(({ id }) => id === route!.params!.id)!
