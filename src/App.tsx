@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { useStore } from 'effector-react'
+import { registerRootComponent } from 'expo'
 import { locale } from 'expo-localization'
 import { StatusBar } from 'expo-status-bar'
 import { useCallback, useEffect } from 'react'
@@ -17,7 +18,7 @@ import 'intl'
 import 'intl/locale-data/jsonp/en'
 import moment from 'moment'
 
-export default function App() {
+function App() {
     const isLoadingComplete = useCachedResources()
     const isInitialDataLoaded = useStore($isInitialDataLoaded)
     const language = useStore($language)
@@ -64,3 +65,5 @@ export default function App() {
         return null
     }
 }
+
+export default registerRootComponent(App)

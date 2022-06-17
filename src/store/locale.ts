@@ -1,8 +1,8 @@
 import { locale } from 'expo-localization'
 
-import en from '../assets/locales/en.json'
-import ge from '../assets/locales/ge.json'
-import ru from '../assets/locales/ru.json'
+import en from '../../assets/locales/en.json'
+import ge from '../../assets/locales/ge.json'
+import ru from '../../assets/locales/ru.json'
 import { createEvent, createStore } from 'effector'
 
 export const languages = ['en', 'ru', 'ge'] as const
