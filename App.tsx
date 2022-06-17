@@ -8,9 +8,9 @@ import { Provider as PaperProvider } from 'react-native-paper'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import useCachedResources from './hooks/useCachedResources'
-import { getCurrentTranslation } from './locales'
 import Navigation from './navigation'
 import { $isInitialDataLoaded } from './store'
+import { $language, $messages } from './store/locale'
 import { requestInitialData, requestPermissions } from './store/main'
 import { OnErrorFn } from '@formatjs/intl/src/types'
 import 'intl'
@@ -20,6 +20,8 @@ import moment from 'moment'
 export default function App() {
     const isLoadingComplete = useCachedResources()
     const isInitialDataLoaded = useStore($isInitialDataLoaded)
+    const language = useStore($language)
+    const messages = useStore($messages)
 
     const handleIntlError = useCallback<OnErrorFn>((error) => {
         if (process.env.NODE_ENV !== 'development') {
@@ -43,8 +45,8 @@ export default function App() {
     if (isInitialDataLoaded) {
         return (
             <IntlProvider
-                messages={getCurrentTranslation(locale)}
-                locale={locale}
+                messages={messages}
+                locale={language}
                 defaultLocale="en"
                 onError={handleIntlError}
             >
