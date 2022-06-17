@@ -17,7 +17,8 @@ export interface Props {}
 export const MainScreen: FC<Props> = memo(function MainScreen(props) {
     return (
         <BottomTab.Navigator
-            initialRouteName={Tab.Masters}
+            initialRouteName={Tab.Locations}
+            // initialRouteName={Tab.Masters}
             shifting={true}
             sceneAnimationEnabled={false}
         >

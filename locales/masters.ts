@@ -30,4 +30,12 @@ export const locales = {
     [HairServices.hairstyle]: 'Прическа',
     [HairServices.styling_for_event]: 'Укладка: торжественная',
     [HairServices.styling_daily]: 'Укладка: ежедневная',
+    day0: 'Понедельник',
+    day1: 'Вторник',
+    day2: 'Среда',
+    day3: 'Четверг',
+    day4: 'Пятница',
+    day5: 'Суббота',
+    day6: 'Воскресенье',
+    tomorrow: 'Завтра',
 }

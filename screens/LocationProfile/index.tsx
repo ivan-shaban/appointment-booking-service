@@ -4,6 +4,7 @@ import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { Subheading } from 'react-native-paper'
 
 import { FeedbackEntry } from '../../components/FeedbackEntry'
+import { LocationWorkStatus } from '../../components/LocationWorkStatus'
 import { MasterItem } from '../../components/MasterItem'
 import { Paragpaph } from '../../components/Paragpaph'
 import { PhoneRecord } from '../../components/PhoneRecord'
@@ -31,6 +32,7 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
             <Image style={styles.gallery} source={{ uri: location.gallery[0] }} />
             <Paragpaph icon="image-text" title={location.name}>
                 <RatingEntry rating={location.rating} feedbacksCount={location.feedbacks.length} />
+                <LocationWorkStatus location={location} />
                 <Subheading>{location.description}</Subheading>
             </Paragpaph>
             <Paragpaph icon="map-outline" title="Address">
