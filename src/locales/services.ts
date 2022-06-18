@@ -51,8 +51,8 @@ export const servicesLocale = defineMessages({
         id: 'service.hairstyle',
         defaultMessage: 'Прическа',
     },
-    [HairServices.styling_for_event]: {
-        id: 'service.styling_for_event',
+    [HairServices.styling_ceremonial]: {
+        id: 'service.styling_ceremonial',
         defaultMessage: 'Укладка: торжественная',
     },
     [HairServices.styling_daily]: {

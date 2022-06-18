@@ -77,6 +77,12 @@
       "value": "Воскресенье"
     }
   ],
+  "language": [
+    {
+      "type": 0,
+      "value": "Язык"
+    }
+  ],
   "location.closed": [
     {
       "type": 0,

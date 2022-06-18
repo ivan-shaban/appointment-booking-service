@@ -50,7 +50,7 @@ export enum HairServices {
     /**
      * Укладка: торжественная
      */
-    styling_for_event = 'styling_for_event',
+    styling_ceremonial = 'styling_ceremonial',
     /**
      * Укладка: ежедневная
      */

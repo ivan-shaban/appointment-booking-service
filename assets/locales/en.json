@@ -77,6 +77,12 @@
       "value": "Sunday"
     }
   ],
+  "language": [
+    {
+      "type": 0,
+      "value": "Language"
+    }
+  ],
   "location.closed": [
     {
       "type": 0,

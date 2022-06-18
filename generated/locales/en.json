@@ -12,6 +12,7 @@
   "day4": "Friday",
   "day5": "Saturday",
   "day6": "Sunday",
+  "language": "Language",
   "location.closed": "Closed",
   "location.closesIn": "• Will close at {time}",
   "location.opened": "Open",
