@@ -11,21 +11,18 @@ import { Tab } from '../../constants/Tab'
 import { actionsLocale } from '../../locales/actions'
 import { menuLocale } from '../../locales/menu'
 import { subheadersLocale } from '../../locales/subheaders'
-import { $masters, Master } from '../../store/masters'
+import { $masters } from '../../store/masters'
 import {
     $currentUser,
     $isFavouriteMasterRequestPending,
     addFavouriteMasterFx,
     removeFavouriteMasterFx,
 } from '../../store/user'
-import { RootStackScreenProps } from '../../types'
+import { MasterProfileTabParamList, RootStackScreenProps } from '../../types'
 import { DescriptionTab } from './DescriptionTab'
 import { FeedbacksTab } from './FeedbacksTab'
 
-const TabsTop = createMaterialTopTabNavigator<{
-    Description: { master: Master }
-    Feedbacks: { master: Master }
-}>()
+const TabsTop = createMaterialTopTabNavigator<MasterProfileTabParamList>()
 
 export function MasterProfile({ navigation, route }: RootStackScreenProps<'MasterProfile'>) {
     const intl = useIntl()

@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { useStore } from 'effector-react'
 import { registerRootComponent } from 'expo'
 import { locale } from 'expo-localization'
@@ -53,9 +52,7 @@ function App() {
             >
                 <PaperProvider>
                     <SafeAreaProvider>
-                        <NavigationContainer>
-                            <Navigation />
-                        </NavigationContainer>
+                        <Navigation />
                         <StatusBar />
                     </SafeAreaProvider>
                 </PaperProvider>

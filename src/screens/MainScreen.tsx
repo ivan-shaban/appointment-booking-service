@@ -20,12 +20,7 @@ export const MainScreen: FC<Props> = memo(function MainScreen(props) {
     const intl = useIntl()
 
     return (
-        <BottomTab.Navigator
-            initialRouteName={Tab.Locations}
-            // initialRouteName={Tab.Masters}
-            shifting={true}
-            sceneAnimationEnabled={false}
-        >
+        <BottomTab.Navigator shifting={true} sceneAnimationEnabled={false}>
             <BottomTab.Screen
                 name={Tab.Masters}
                 component={MastersScreen}
