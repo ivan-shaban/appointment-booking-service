@@ -17,4 +17,8 @@ export const actionsLocale = defineMessages({
         id: 'actions.leftFeedback',
         defaultMessage: 'Оставить отзыв',
     },
+    sendMessage: {
+        id: 'actions.sendMessage',
+        defaultMessage: 'Оставить сообщение',
+    },
 })

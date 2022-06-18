@@ -1,7 +1,8 @@
 import { useStore } from 'effector-react'
-import React from 'react'
+import React, { useState } from 'react'
+import { useIntl } from 'react-intl'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
-import { Subheading } from 'react-native-paper'
+import { FAB, Subheading } from 'react-native-paper'
 
 import { FeedbackEntry } from '../../components/FeedbackEntry'
 import { LocationWorkStatus } from '../../components/LocationWorkStatus'
@@ -14,6 +15,7 @@ import { ServiceChip } from '../../components/ServiceChip'
 import { ScrollView } from '../../components/Themed'
 import { Tab } from '../../constants/Tab'
 import { Service } from '../../constants/services'
+import { actionsLocale } from '../../locales/actions'
 import { menuLocale } from '../../locales/menu'
 import { subheadersLocale } from '../../locales/subheaders'
 import { $locations } from '../../store/locations'
@@ -21,14 +23,15 @@ import { $masters } from '../../store/masters'
 import { RootStackScreenProps } from '../../types'
 
 export function LocationProfile({ navigation, route }: RootStackScreenProps<'LocationProfile'>) {
+    const intl = useIntl()
     const masters = useStore($masters)
     const locations = useStore($locations)
     const location = locations.find(({ id }) => id === route.params.id)!
     const localMasters = masters.filter(({ locationId }) => locationId === route.params.id)!
 
-    // const [fabOpen, setFabOpen] = useState(false)
-    //
-    // const onStateChange = ({ open }) => setFabOpen(open)
+    const [fabOpen, setFabOpen] = useState(false)
+
+    const onStateChange = ({ open }: { open: boolean }) => setFabOpen(open)
 
     return (
         <ScrollView style={styles.base} showsVerticalScrollIndicator={true}>
@@ -78,6 +81,45 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                     ))}
                 </View>
             </Paragpaph>
+            <FAB.Group
+                open={fabOpen}
+                icon={fabOpen ? 'arrow-left-circle' : 'plus'}
+                color="white"
+                actions={[
+                    {
+                        icon: 'calendar-today',
+                        label: intl.formatMessage(actionsLocale.signUpSoon),
+                        onPress: () => console.log('Pressed star'),
+                    },
+                    {
+                        icon: 'calendar-search',
+                        label: intl.formatMessage(actionsLocale.signUpAtDate),
+                        onPress: () => console.log('Pressed email'),
+                    },
+                    {
+                        icon: 'calendar-remove',
+                        label: intl.formatMessage(actionsLocale.cancelRecord),
+                        onPress: () => console.log('Pressed email'),
+                    },
+                    {
+                        icon: 'comment-plus-outline',
+                        // icon: 'comment-text',
+                        label: intl.formatMessage(actionsLocale.leftFeedback),
+                        onPress: () => console.log('Pressed email'),
+                    },
+                    {
+                        icon: 'forum',
+                        label: intl.formatMessage(actionsLocale.sendMessage),
+                        onPress: () => console.log('Pressed email'),
+                    },
+                ]}
+                onStateChange={onStateChange}
+                onPress={() => {
+                    if (fabOpen) {
+                        // do something if the speed dial is open
+                    }
+                }}
+            />
         </ScrollView>
     )
 }

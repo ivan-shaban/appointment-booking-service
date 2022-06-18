@@ -106,12 +106,11 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                         label: intl.formatMessage(actionsLocale.leftFeedback),
                         onPress: () => console.log('Pressed email'),
                     },
-                    // {
-                    //     icon: 'bell',
-                    //     label: 'Remind',
-                    //     onPress: () => console.log('Pressed notifications'),
-                    //     small: false,
-                    // },
+                    {
+                        icon: 'forum',
+                        label: intl.formatMessage(actionsLocale.sendMessage),
+                        onPress: () => console.log('Pressed email'),
+                    },
                 ]}
                 onStateChange={onStateChange}
                 onPress={() => {
