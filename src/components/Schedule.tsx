@@ -19,7 +19,7 @@ export const Schedule: FC<Props> = memo(function Schedule({ value, index }) {
             <View style={styles.hours}>
                 {!value ? (
                     <Subheading>
-                        <FormattedMessage id="day.holiday" />
+                        <FormattedMessage id="day.dayoff" />
                     </Subheading>
                 ) : (
                     value.map(([start, end]) => (

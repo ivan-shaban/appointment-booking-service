@@ -32,7 +32,7 @@
   "day.tomorrow": [
     {
       "type": 0,
-      "value": "tomorrow"
+      "value": "Tomorrow"
     }
   ],
   "day0": [
@@ -80,13 +80,13 @@
   "location.closed": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Closed"
     }
   ],
   "location.closesIn": [
     {
       "type": 0,
-      "value": "• Close at "
+      "value": "• Will close at "
     },
     {
       "type": 1,
@@ -102,7 +102,7 @@
   "location.opensInDay": [
     {
       "type": 0,
-      "value": "• Open on "
+      "value": "• Will open on "
     },
     {
       "type": 1,
@@ -120,7 +120,7 @@
   "location.opensInTime": [
     {
       "type": 0,
-      "value": "• Open at "
+      "value": "• Will open at "
     },
     {
       "type": 1,
@@ -130,7 +130,7 @@
   "location.opensTomorrow": [
     {
       "type": 0,
-      "value": "• Open tomorrow at "
+      "value": "• Will open tomorrow at "
     },
     {
       "type": 1,

@@ -7,6 +7,17 @@ import { daysLocale } from '../locales/days'
 import { Location } from '../store/locations'
 import moment from 'moment'
 
+const LOCATION_OPENS_IN_DAY_TIME = ({ day, time }: { day: string; time: string }) => (
+    <FormattedMessage
+        id="location.opensInDay"
+        defaultMessage="• Откроется в {day} в {time}"
+        values={{
+            day: day.toLowerCase(),
+            time: time,
+        }}
+    />
+)
+
 export interface Props {
     readonly location: Location
 }
@@ -56,7 +67,7 @@ export const LocationWorkStatus: FC<Props> = memo(function LocationWorkStatus({ 
             {schedule === false ? (
                 <Text>
                     <Text style={styles.closed}>
-                        <FormattedMessage id="day.holiday" />
+                        <FormattedMessage id="day.dayoff" />
                     </Text>{' '}
                     {dayOffset === 1 ? (
                         <FormattedMessage
@@ -67,14 +78,10 @@ export const LocationWorkStatus: FC<Props> = memo(function LocationWorkStatus({ 
                             }}
                         />
                     ) : nearestOpeningDay ? (
-                        <FormattedMessage
-                            id="location.opensInDay"
-                            defaultMessage="• Откроется в {day} в {time}"
-                            values={{
-                                day: nearestOpeningDay.toLowerCase(),
-                                time: nearestSchedule[0],
-                            }}
-                        />
+                        LOCATION_OPENS_IN_DAY_TIME({
+                            day: nearestOpeningDay,
+                            time: nearestSchedule[0],
+                        })
                     ) : (
                         <FormattedMessage
                             id="location.opensInTime"
@@ -99,10 +106,26 @@ export const LocationWorkStatus: FC<Props> = memo(function LocationWorkStatus({ 
                     <Text style={styles.closed}>
                         <FormattedMessage id="location.closed" defaultMessage="Закрыто" />
                     </Text>{' '}
-                    <FormattedMessage
-                        defaultMessage="• Откроется{day} в {time}"
-                        values={{ day: nearestOpeningDay, time: nearestSchedule[0] }}
-                    />
+                    {dayOffset === 1 ? (
+                        <FormattedMessage
+                            id="location.opensTomorrow"
+                            defaultMessage="• Откроется завтра в {time}"
+                            values={{
+                                time: nearestSchedule[0],
+                            }}
+                        />
+                    ) : nearestOpeningDay ? (
+                        LOCATION_OPENS_IN_DAY_TIME({
+                            day: nearestOpeningDay,
+                            time: nearestSchedule[0],
+                        })
+                    ) : (
+                        <FormattedMessage
+                            id="location.opensInTime"
+                            defaultMessage="• Откроется в {time}"
+                            values={{ time: nearestSchedule[0] }}
+                        />
+                    )}
                 </Text>
             )}
         </View>
