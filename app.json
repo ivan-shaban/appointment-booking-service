@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "test-ts-3",
-    "slug": "test-ts-3",
+    "name": "appointment-booking-service",
+    "slug": "appointment-booking-service",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
