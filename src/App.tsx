@@ -11,7 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import useCachedResources from './hooks/useCachedResources'
 import Navigation from './navigation'
 import { $isInitialDataLoaded } from './store'
-import { $language, $messages } from './store/locale'
+import { $language, $messages, defaultLanguage } from './store/locale'
 import { requestInitialData, requestPermissions } from './store/main'
 import { OnErrorFn } from '@formatjs/intl/src/types'
 import 'intl'
@@ -48,7 +48,7 @@ function App() {
             <IntlProvider
                 messages={messages}
                 locale={language}
-                defaultLocale="en"
+                defaultLocale={defaultLanguage}
                 onError={handleIntlError}
             >
                 <PaperProvider>

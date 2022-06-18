@@ -7,6 +7,7 @@ import { createEvent, createStore } from 'effector'
 
 export const languages = ['en', 'ru', 'ge'] as const
 export type Language = typeof languages[number]
+export const defaultLanguage: Language = 'ru'
 const translations = {
     en,
     ge,
@@ -19,4 +20,6 @@ export const $language = createStore(locale.split(/[-_]/)[0] as Language).on(
     (_, language) => language,
 )
 
-export const $messages = $language.map((language) => translations[language] || translations.en)
+export const $messages = $language.map(
+    (language) => translations[language] || translations[defaultLanguage],
+)
