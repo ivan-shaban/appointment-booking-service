@@ -17,7 +17,7 @@ const linking: LinkingOptions<RootStackParamList> = {
             Root: {
                 initialRouteName: Tab.Locations,
                 // initialRouteName: Tab.Masters,
-                path: 'root/:section?',
+                path: 'root',
                 screens: {
                     [Tab.Masters]: {
                         path: 'masters',
