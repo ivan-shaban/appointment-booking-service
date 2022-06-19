@@ -3,6 +3,10 @@ import { defineMessages } from 'react-intl'
 import { ClientType } from '../constants/genders'
 
 export const subheadersLocale = defineMessages({
+    languages: {
+        id: 'subheader.languages',
+        defaultMessage: 'Языки которыми владеет',
+    },
     services: {
         id: 'subheader.services',
         defaultMessage: 'Услуги',

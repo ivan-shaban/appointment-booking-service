@@ -7,3 +7,15 @@ export enum MasterType {
     Beautician = 'beautician', // косметолог-врач
     Cosmetic = 'cosmetic', // без возможности повреждения кожного покрова
 }
+
+export enum MasterLanguage {
+    ru = 'ru',
+    ge = 'ge',
+    en = 'en',
+    fr = 'fr',
+    de = 'de',
+    ar = 'ar', // арабский
+    tr = 'tr', // турецкий
+    ua = 'ua', // украинский
+    be = 'be', // беларуский
+}

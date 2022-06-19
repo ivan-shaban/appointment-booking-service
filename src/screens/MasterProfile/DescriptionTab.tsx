@@ -1,10 +1,11 @@
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs/src/types'
 import { useStore } from 'effector-react'
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 import { useIntl } from 'react-intl'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { View as DefaultView, Dimensions, StyleSheet, View } from 'react-native'
 import { Chip, Subheading } from 'react-native-paper'
 
+import { Flag } from '../../components/Flag'
 import { LocationItem } from '../../components/LocationItem'
 import { Paragpaph } from '../../components/Paragpaph'
 import { ServiceChip } from '../../components/ServiceChip'
@@ -50,6 +51,18 @@ export const DescriptionTab: FC<Props> = function Description({ route }) {
                         >
                             {intl.formatMessage(subheadersLocale[type])}
                         </Chip>
+                    ))}
+                </View>
+            </Paragpaph>
+            <Paragpaph icon="translate" title={subheadersLocale.languages}>
+                <View style={styles.servicesContainer}>
+                    {master.languages.map((language, index) => (
+                        <Fragment key={language}>
+                            <Flag language={language} indicator />
+                            {index !== master.languages.length - 1 && (
+                                <DefaultView style={styles.divider} />
+                            )}
+                        </Fragment>
                     ))}
                 </View>
             </Paragpaph>
@@ -109,4 +122,9 @@ const styles = StyleSheet.create({
         marginRight: 8,
     },
     pContent: { marginLeft: -50, width: Dimensions.get('screen').width },
+    divider: {
+        width: 1,
+        height: 20,
+        backgroundColor: '#ccc',
+    },
 })
