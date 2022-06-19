@@ -1,5 +1,4 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { useStore } from 'effector-react'
 import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
 import { StyleSheet } from 'react-native'
@@ -7,10 +6,10 @@ import { Badge, FAB } from 'react-native-paper'
 
 import { View } from '../../components/Themed'
 import { Tab } from '../../constants/Tab'
+import { useMaster } from '../../hooks/useMaster'
 import { actionsLocale } from '../../locales/actions'
 import { menuLocale } from '../../locales/menu'
 import { subheadersLocale } from '../../locales/subheaders'
-import { $masters } from '../../store/masters'
 import { MasterProfileTabParamList, RootStackScreenProps } from '../../types'
 import { DescriptionTab } from './DescriptionTab'
 import { FeedbacksTab } from './FeedbacksTab'
@@ -19,8 +18,7 @@ const TabsTop = createMaterialTopTabNavigator<MasterProfileTabParamList>()
 
 export function MasterProfile({ navigation, route }: RootStackScreenProps<'MasterProfile'>) {
     const intl = useIntl()
-    const masters = useStore($masters)
-    const master = masters.find(({ id }) => id === route.params.id)!
+    const master = useMaster(route.params.id)
     const [fabOpen, setFabOpen] = useState(false)
 
     const onStateChange = ({ open }: { open: boolean }) => setFabOpen(open)

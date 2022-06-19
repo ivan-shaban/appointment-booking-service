@@ -21,6 +21,9 @@ export const ScreenHeader: FC<NativeStackHeaderProps> = (props) => {
         case 'LocationProfile': {
             return <LocationProfileHeader {...props} />
         }
+        case 'MasterPhotoModal': {
+            return null
+        }
         default: {
             console.log(`>> no header for this view: ${route.name}`)
             return null

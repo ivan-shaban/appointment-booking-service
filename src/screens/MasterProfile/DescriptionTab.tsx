@@ -1,5 +1,4 @@
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs/src/types'
-import { useStore } from 'effector-react'
 import React, { FC, Fragment } from 'react'
 import { useIntl } from 'react-intl'
 import { View as DefaultView, Dimensions, StyleSheet, View } from 'react-native'
@@ -12,9 +11,9 @@ import { ServiceChip } from '../../components/ServiceChip'
 import { ScrollView } from '../../components/Themed'
 import { Tab } from '../../constants/Tab'
 import { ClientType } from '../../constants/genders'
+import { useLocation } from '../../hooks/useLocation'
 import { menuLocale } from '../../locales/menu'
 import { subheadersLocale } from '../../locales/subheaders'
-import { $locations } from '../../store/locations'
 import { MasterProfileTabParamList } from '../../types'
 
 export interface Props
@@ -23,7 +22,7 @@ export interface Props
 export const DescriptionTab: FC<Props> = function Description({ route }) {
     const intl = useIntl()
     const { master } = route.params
-    const location = useStore($locations).find(({ id }) => id === master.locationId)
+    const location = useLocation(master.locationId)
 
     return (
         <ScrollView style={styles.base}>

@@ -26,10 +26,9 @@ declare global {
 
 export type RootStackParamList = {
     Root: NavigatorScreenParams<RootTabParamList>
-    // MasterProfile: NavigatorScreenParams<MasterProfileTabParamList>
     MasterProfile: { id: number } & NavigatorScreenParams<MasterProfileTabParamList>
     LocationProfile: { id: number }
-    Modal: undefined
+    MasterPhotoModal: { master: Master }
 }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

@@ -52,7 +52,7 @@ const linking: LinkingOptions<RootStackParamList> = {
             LocationProfile: {
                 path: 'locations/:id',
             },
-            Modal: 'modal',
+            MasterPhotoModal: 'modal',
         },
     },
 }

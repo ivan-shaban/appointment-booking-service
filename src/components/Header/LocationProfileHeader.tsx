@@ -1,27 +1,26 @@
-import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 import { useStore } from 'effector-react'
-import React, { FC, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { Appbar } from 'react-native-paper'
 
-import { $locations } from '../../store/locations'
+import { useLocation } from '../../hooks/useLocation'
 import {
     $currentUser,
     $isFavouriteLocationRequestPending,
     addFavouriteLocationFx,
     removeFavouriteLocationFx,
 } from '../../store/user'
+import { RootStackScreenProps } from '../../types'
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
 
-export interface Props extends NativeStackHeaderProps {}
-
-export const LocationProfileHeader: FC<Props> = ({ options, back, navigation, route }) => {
+export const LocationProfileHeader = ({
+    navigation,
+    route,
+}: RootStackScreenProps<'LocationProfile'>) => {
     const currentUser = useStore($currentUser)
     const isFavouriteLocationRequestPending = useStore($isFavouriteLocationRequestPending)
-    const locations = useStore($locations)
-    // @ts-ignore
-    const location = locations.find(({ id }) => id === route.params.id)!
+    const location = useLocation(route.params.id)
     const isFavourite = currentUser?.favourite.locations.includes(location.id)
     const handleFavouritePress = useCallback(() => {
         isFavourite ? removeFavouriteLocationFx(location.id) : addFavouriteLocationFx(location.id)

@@ -16,18 +16,17 @@ import { ServiceChip } from '../../components/ServiceChip'
 import { ScrollView } from '../../components/Themed'
 import { Tab } from '../../constants/Tab'
 import { Service } from '../../constants/services'
+import { useLocation } from '../../hooks/useLocation'
 import { actionsLocale } from '../../locales/actions'
 import { menuLocale } from '../../locales/menu'
 import { subheadersLocale } from '../../locales/subheaders'
-import { $locations } from '../../store/locations'
 import { $masters } from '../../store/masters'
 import { RootStackScreenProps } from '../../types'
 
 export function LocationProfile({ navigation, route }: RootStackScreenProps<'LocationProfile'>) {
     const intl = useIntl()
     const masters = useStore($masters)
-    const locations = useStore($locations)
-    const location = locations.find(({ id }) => id === route.params.id)!
+    const location = useLocation(route.params.id)
     const localMasters = masters.filter(({ locationId }) => locationId === route.params.id)!
 
     const [fabOpen, setFabOpen] = useState(false)
