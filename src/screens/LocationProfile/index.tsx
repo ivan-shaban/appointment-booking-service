@@ -35,55 +35,59 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
     const onStateChange = ({ open }: { open: boolean }) => setFabOpen(open)
 
     return (
-        <ScrollView style={styles.base} showsVerticalScrollIndicator={true}>
-            <Gallery images={location.gallery} />
-            <Paragpaph icon="image-text" title={location.name}>
-                <RatingEntry rating={location.rating} feedbacksCount={location.feedbacks.length} />
-                <LocationWorkStatus location={location} />
-                <Subheading>{location.description}</Subheading>
-            </Paragpaph>
-            <Paragpaph icon="map-outline" title={subheadersLocale.address}>
-                <Subheading>{location.address}</Subheading>
-            </Paragpaph>
-            <Paragpaph icon="phone-outline" title={subheadersLocale.contacts}>
-                {location.tel.map((tel) => (
-                    <PhoneRecord key={tel} phone={tel} />
-                ))}
-            </Paragpaph>
-            <Paragpaph icon="clock-outline" title={subheadersLocale.schedule}>
-                {location.schedules.map((schedule, index) => (
-                    <Schedule key={index} value={schedule} index={index} />
-                ))}
-            </Paragpaph>
-            <Paragpaph icon="chair-rolling" title={subheadersLocale.services}>
-                <View style={styles.servicesContainer}>
-                    {Array.from(
-                        localMasters.reduce((result, master) => {
-                            master.services.forEach((service) => result.add(service))
-                            return result
-                        }, new Set<Service>()),
-                    ).map((service) => (
-                        <ServiceChip type={service} key={service} />
+        <View style={styles.base}>
+            <ScrollView showsVerticalScrollIndicator={true}>
+                <Gallery images={location.gallery} />
+                <Paragpaph icon="image-text" title={location.name}>
+                    <RatingEntry
+                        rating={location.rating}
+                        feedbacksCount={location.feedbacks.length}
+                    />
+                    <LocationWorkStatus location={location} />
+                    <Subheading>{location.description}</Subheading>
+                </Paragpaph>
+                <Paragpaph icon="map-outline" title={subheadersLocale.address}>
+                    <Subheading>{location.address}</Subheading>
+                </Paragpaph>
+                <Paragpaph icon="phone-outline" title={subheadersLocale.contacts}>
+                    {location.tel.map((tel) => (
+                        <PhoneRecord key={tel} phone={tel} />
                     ))}
-                </View>
-            </Paragpaph>
-            <Paragpaph icon="account-group-outline" title={menuLocale[Tab.Masters]}>
-                <View style={styles.pContent}>
-                    {localMasters.map((master) => (
-                        <MasterItem master={master} key={master.id} />
+                </Paragpaph>
+                <Paragpaph icon="clock-outline" title={subheadersLocale.schedule}>
+                    {location.schedules.map((schedule, index) => (
+                        <Schedule key={index} value={schedule} index={index} />
                     ))}
-                </View>
-            </Paragpaph>
-            {/*<Paragpaph icon="list-status" title="Feedbacks">*/}
-            <Paragpaph icon="comment-text-multiple-outline" title={subheadersLocale.feedbacks}>
-                <View style={styles.pContent}>
-                    {location.feedbacks.map((feedback) => (
-                        <FeedbackEntry key={feedback.id} feedback={feedback} />
-                    ))}
-                </View>
-            </Paragpaph>
+                </Paragpaph>
+                <Paragpaph icon="chair-rolling" title={subheadersLocale.services}>
+                    <View style={styles.servicesContainer}>
+                        {Array.from(
+                            localMasters.reduce((result, master) => {
+                                master.services.forEach((service) => result.add(service))
+                                return result
+                            }, new Set<Service>()),
+                        ).map((service) => (
+                            <ServiceChip type={service} key={service} />
+                        ))}
+                    </View>
+                </Paragpaph>
+                <Paragpaph icon="account-group-outline" title={menuLocale[Tab.Masters]}>
+                    <View style={styles.pContent}>
+                        {localMasters.map((master) => (
+                            <MasterItem master={master} key={master.id} />
+                        ))}
+                    </View>
+                </Paragpaph>
+                {/*<Paragpaph icon="list-status" title="Feedbacks">*/}
+                <Paragpaph icon="comment-text-multiple-outline" title={subheadersLocale.feedbacks}>
+                    <View style={styles.pContent}>
+                        {location.feedbacks.map((feedback) => (
+                            <FeedbackEntry key={feedback.id} feedback={feedback} />
+                        ))}
+                    </View>
+                </Paragpaph>
+            </ScrollView>
             <FAB.Group
-                style={styles.fab}
                 open={fabOpen}
                 icon={fabOpen ? 'arrow-left-circle' : 'plus'}
                 color="white"
@@ -122,7 +126,7 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                     }
                 }}
             />
-        </ScrollView>
+        </View>
     )
 }
 
