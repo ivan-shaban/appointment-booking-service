@@ -7,15 +7,21 @@ import { Appbar, Avatar } from 'react-native-paper'
 
 import { mastersLocale } from '../../locales/masters'
 import { $masters } from '../../store/masters'
-import { $currentUser, addFavouriteMasterFx, removeFavouriteMasterFx } from '../../store/user'
+import {
+    $currentUser,
+    $isFavouriteMasterRequestPending,
+    addFavouriteMasterFx,
+    removeFavouriteMasterFx,
+} from '../../store/user'
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
 
 export interface Props extends NativeStackHeaderProps {}
 
-export const ProfileHeader: FC<Props> = ({ options, back, navigation, route }) => {
+export const MasterProfileHeader: FC<Props> = ({ options, back, navigation, route }) => {
     const intl = useIntl()
     const currentUser = useStore($currentUser)
+    const isFavouriteMasterRequestPending = useStore($isFavouriteMasterRequestPending)
     const masters = useStore($masters)
     // @ts-ignore
     const master = masters.find(({ id }) => id === route!.params!.id)!
@@ -45,6 +51,7 @@ export const ProfileHeader: FC<Props> = ({ options, back, navigation, route }) =
                 style={styles.bigItem}
                 icon={isFavourite ? 'cards-heart' : 'cards-heart-outline'}
                 color="red"
+                disabled={isFavouriteMasterRequestPending}
                 onPress={handleFavouritePress}
             />
             <Appbar.Action style={styles.smallItem} icon="share-variant" onPress={() => {}} />
