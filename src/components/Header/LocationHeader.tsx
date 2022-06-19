@@ -26,19 +26,23 @@ export const LocationHeader: FC<Props> = ({ options, back, navigation, route }) 
             <Appbar.BackAction onPress={navigation.goBack} />
             <Appbar.Content title={location.name} subtitle={location.address} />
             <Appbar.Action
+                style={styles.bigItem}
                 icon={isFavourite ? 'cards-heart' : 'cards-heart-outline'}
-                style={styles.menu}
                 color="red"
                 onPress={handleFavouritePress}
             />
-            <Appbar.Action icon={MORE_ICON} onPress={() => {}} />
+            <Appbar.Action style={styles.smallItem} icon="share-variant" onPress={() => {}} />
+            <Appbar.Action style={styles.smallItem} icon={MORE_ICON} onPress={() => {}} />
         </Appbar.Header>
     )
 }
 
 const styles = StyleSheet.create({
     base: {},
-    menu: {
+    bigItem: {
         marginLeft: 'auto',
+    },
+    smallItem: {
+        marginLeft: -5,
     },
 })

@@ -82,6 +82,7 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                 </View>
             </Paragpaph>
             <FAB.Group
+                style={styles.fab}
                 open={fabOpen}
                 icon={fabOpen ? 'arrow-left-circle' : 'plus'}
                 color="white"
@@ -149,4 +150,9 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     pContent: { marginLeft: -50, width: Dimensions.get('screen').width },
+    fab: {
+        position: 'absolute',
+        bottom: 48,
+        right: 0,
+    },
 })
