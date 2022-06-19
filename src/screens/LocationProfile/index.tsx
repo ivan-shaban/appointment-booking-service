@@ -1,10 +1,11 @@
 import { useStore } from 'effector-react'
 import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
-import { Dimensions, Image, StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { FAB, Subheading } from 'react-native-paper'
 
 import { FeedbackEntry } from '../../components/FeedbackEntry'
+import { Gallery } from '../../components/Gallery'
 import { LocationWorkStatus } from '../../components/LocationWorkStatus'
 import { MasterItem } from '../../components/MasterItem'
 import { Paragpaph } from '../../components/Paragpaph'
@@ -35,7 +36,7 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
 
     return (
         <ScrollView style={styles.base} showsVerticalScrollIndicator={true}>
-            <Image style={styles.gallery} source={{ uri: location.gallery[0] }} />
+            <Gallery images={location.gallery} />
             <Paragpaph icon="image-text" title={location.name}>
                 <RatingEntry rating={location.rating} feedbacksCount={location.feedbacks.length} />
                 <LocationWorkStatus location={location} />
@@ -128,10 +129,6 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
 const styles = StyleSheet.create({
     base: {
         flex: 1,
-    },
-    gallery: {
-        width: Dimensions.get('window').width,
-        height: 250,
     },
     favouriteButton: {
         position: 'absolute',
