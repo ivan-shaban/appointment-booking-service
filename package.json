@@ -1,6 +1,6 @@
 {
   "name": "appointment-booking-service",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "main": "src/App.tsx",
   "scripts": {
     "start": "expo start",
@@ -9,6 +9,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
+    "build:test": "ts-node ./scripts/incrementAndroidVersion.ts",
+    "build:android": "eas build --platform android",
     "i18n:extract": "formatjs extract \"src/**/*.{js,jsx,ts,tsx}\" --ignore=\"**/*.d.ts\" --format simple --id-interpolation-pattern [sha512:contenthash:base64:6] --out-file generated/locales/ru.json",
     "i18n:compile": "formatjs compile-folder --ast --format simple generated/locales assets/locales"
   },
@@ -54,7 +56,8 @@
     "react-native-svg": "^12.3.0",
     "react-native-tab-view": "^3.1.1",
     "react-native-vector-icons": "^9.1.0",
-    "react-native-web": "0.17.7"
+    "react-native-web": "0.17.7",
+    "semver": "^7.3.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -64,6 +67,7 @@
     "@types/react": "~17.0.45",
     "@types/react-native": "~0.67.8",
     "@types/react-native-vector-icons": "^6.4.10",
+    "@types/semver": "^7.3.10",
     "eslint": "8.17.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-effector": "^0.7.4",
@@ -76,6 +80,7 @@
     "prettier": "2.6.2",
     "prettier-eslint-cli": "^6.0.1",
     "react-test-renderer": "17.0.2",
+    "ts-node": "^10.8.1",
     "typescript": "~4.3.5"
   },
   "private": true
