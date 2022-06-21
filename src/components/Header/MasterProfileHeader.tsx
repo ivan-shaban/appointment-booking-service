@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl'
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native'
 import { Appbar, Avatar } from 'react-native-paper'
 
+import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
 import { useMaster } from '../../hooks/useMaster'
 import { mastersLocale } from '../../locales/masters'
@@ -46,7 +47,7 @@ export const MasterProfileHeader = ({
     }, [navigation])
 
     return (
-        <Appbar.Header>
+        <Appbar.Header style={{ backgroundColor: colorByTab[Tab.Masters] }}>
             <Appbar.BackAction onPress={navigateToBack} />
             <TouchableOpacity onPress={handleOpenMasterPhotoModal}>
                 <Avatar.Image

@@ -4,6 +4,7 @@ import React, { useCallback } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { Appbar } from 'react-native-paper'
 
+import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
 import { useLocation } from '../../hooks/useLocation'
 import {
@@ -42,9 +43,9 @@ export const LocationProfileHeader = ({
     }, [navigation])
 
     return (
-        <Appbar.Header>
-            <Appbar.BackAction onPress={navigateToBack} />
-            <Appbar.Content title={location.name} subtitle={location.address} />
+        <Appbar.Header style={{ backgroundColor: colorByTab[Tab.Locations] }}>
+            <Appbar.BackAction color="white" onPress={navigateToBack} />
+            <Appbar.Content color="white" title={location.name} subtitle={location.address} />
             <Appbar.Action
                 style={styles.bigItem}
                 icon={isFavourite ? 'cards-heart' : 'cards-heart-outline'}
@@ -61,7 +62,12 @@ export const LocationProfileHeader = ({
                 // message={`Please install this app and stay safe , AppLink: ${getAppStoreURL()}`}
                 url={Linking.createURL(`locations/${location.id}`)}
             />
-            <Appbar.Action style={styles.smallItem} icon={MORE_ICON} onPress={() => {}} />
+            <Appbar.Action
+                style={styles.smallItem}
+                icon={MORE_ICON}
+                color="white"
+                onPress={() => {}}
+            />
         </Appbar.Header>
     )
 }
