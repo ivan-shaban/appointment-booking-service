@@ -30,14 +30,17 @@ export const LocationWorkStatus: FC<Props> = memo(function LocationWorkStatus({ 
 
     const isOpen =
         schedule !== false &&
-        schedule.some(([starts, ends]) => {
-            const opening = moment(starts, 'HH:mm:ss')
-            const closing = moment(ends, 'HH:mm:ss')
-            return now.isBetween(opening, closing)
-        })
+        (schedule === '24h' ||
+            schedule.some(([starts, ends]) => {
+                const opening = moment(starts, 'HH:mm:ss')
+                const closing = moment(ends, 'HH:mm:ss')
+                return now.isBetween(opening, closing)
+            }))
 
     let nearestSchedule = schedule
-        ? isOpen
+        ? schedule === '24h'
+            ? ['00:00', '00:00']
+            : isOpen
             ? schedule.find(([starts, ends]) => {
                   const opening = moment(starts, 'HH:mm:ss')
                   const closing = moment(ends, 'HH:mm:ss')
@@ -51,7 +54,9 @@ export const LocationWorkStatus: FC<Props> = memo(function LocationWorkStatus({ 
 
     while (!nearestSchedule) {
         dayOffset++
-        const nextSchedule = location.schedules[(now.isoWeekday() - 1 + dayOffset) % 7]
+        const nextSchedule = location.schedules[(now.isoWeekday() - 1 + dayOffset) % 7] as
+            | false
+            | [string, string][]
         nearestSchedule = nextSchedule ? nextSchedule[0] : null
     }
     const nearestOpeningDayIndex = dayOffset

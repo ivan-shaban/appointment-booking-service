@@ -10,4 +10,5 @@ export const daysLocale = defineMessages({
     day6: { id: 'day6', defaultMessage: 'Воскресенье' },
     tomorrow: { id: 'day.tomorrow', defaultMessage: 'Завтра' },
     holiday: { id: 'day.dayoff', defaultMessage: 'Выходной' },
+    wholeDay: { id: 'day.wholeDay', defaultMessage: 'Круглосуточно' },
 })

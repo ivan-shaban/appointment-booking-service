@@ -19,7 +19,7 @@ export interface Location {
     /**
      * 7 days, max 3 breaks per day
      */
-    readonly schedules: Array<Array<[string, string]> | false>
+    readonly schedules: Array<Array<[string, string]> | false | '24h'>
 }
 
 export const requestAllLocationsData = createEffect({
@@ -55,7 +55,7 @@ export const requestAllLocationsData = createEffect({
                     false,
                     [['8:00', '21:00']],
                     [['8:00', '21:00']],
-                    [['8:00', '21:00']],
+                    '24h',
                     [['8:00', '21:00']],
                     [['8:00', '19:00']],
                 ],

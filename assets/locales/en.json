@@ -11,6 +11,12 @@
       "value": "Add feedback"
     }
   ],
+  "actions.sendMessage": [
+    {
+      "type": 0,
+      "value": "Send message"
+    }
+  ],
   "actions.signUpAtDate": [
     {
       "type": 0,
@@ -23,6 +29,12 @@
       "value": "Sign up soon"
     }
   ],
+  "button.back": [
+    {
+      "type": 0,
+      "value": "Back"
+    }
+  ],
   "day.dayoff": [
     {
       "type": 0,
@@ -33,6 +45,12 @@
     {
       "type": 0,
       "value": "Tomorrow"
+    }
+  ],
+  "day.wholeDay": [
+    {
+      "type": 0,
+      "value": "24h"
     }
   ],
   "day0": [
@@ -339,6 +357,12 @@
     {
       "type": 0,
       "value": "Girls"
+    }
+  ],
+  "subheader.languages": [
+    {
+      "type": 0,
+      "value": "Known languages"
     }
   ],
   "subheader.men": [

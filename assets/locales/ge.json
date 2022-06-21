@@ -11,6 +11,12 @@
       "value": "Оставить отзыв"
     }
   ],
+  "actions.sendMessage": [
+    {
+      "type": 0,
+      "value": "Оставить сообщение"
+    }
+  ],
   "actions.signUpAtDate": [
     {
       "type": 0,
@@ -23,6 +29,12 @@
       "value": "Записаться на ближайшее время"
     }
   ],
+  "button.back": [
+    {
+      "type": 0,
+      "value": "Назад"
+    }
+  ],
   "day.dayoff": [
     {
       "type": 0,
@@ -33,6 +45,12 @@
     {
       "type": 0,
       "value": "Завтра"
+    }
+  ],
+  "day.wholeDay": [
+    {
+      "type": 0,
+      "value": "Круглосуточно"
     }
   ],
   "day0": [
@@ -339,6 +357,12 @@
     {
       "type": 0,
       "value": "Девочки"
+    }
+  ],
+  "subheader.languages": [
+    {
+      "type": 0,
+      "value": "Языки которыми владеет"
     }
   ],
   "subheader.men": [

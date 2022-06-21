@@ -3,30 +3,34 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 import { Subheading } from 'react-native-paper'
 
-import { daysLocale } from '../locales/days'
+import { Location } from '../store/locations'
 
 export interface Props {
     readonly index: number
-    readonly value: Array<[string, string]> | false
+    readonly value: Location['schedules'][number]
 }
 
 export const Schedule: FC<Props> = memo(function Schedule({ value, index }) {
-    const intl = useIntl()
     return (
         <View style={styles.base}>
-            {/* @ts-ignore*/}
-            <Subheading>{intl.formatMessage(daysLocale[`day${index}`])}</Subheading>
+            <Subheading>
+                <FormattedMessage id={`day${index}`} />
+            </Subheading>
             <View style={styles.hours}>
-                {!value ? (
+                {value === '24h' ? (
                     <Subheading>
-                        <FormattedMessage id="day.dayoff" />
+                        <FormattedMessage id="day.wholeDay" />
                     </Subheading>
-                ) : (
+                ) : value ? (
                     value.map(([start, end]) => (
                         <Subheading key={`${start}-${end}`}>
                             {start}-{end}
                         </Subheading>
                     ))
+                ) : (
+                    <Subheading>
+                        <FormattedMessage id="day.dayoff" />
+                    </Subheading>
                 )}
             </View>
         </View>
