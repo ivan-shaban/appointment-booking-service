@@ -8,6 +8,7 @@ import { Provider as PaperProvider } from 'react-native-paper'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import useCachedResources from './hooks/useCachedResources'
+import './locales/app'
 import Navigation from './navigation'
 import { $isInitialDataLoaded } from './store'
 import { $language, $messages, defaultLanguage } from './store/locale'

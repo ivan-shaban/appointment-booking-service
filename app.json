@@ -51,6 +51,11 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "locales": {
+      "ru": "./assets/locales/ru.json",
+      "ge": "./assets/locales/ge.json",
+      "en": "./assets/locales/en.json"
     }
   }
 }

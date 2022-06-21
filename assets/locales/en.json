@@ -1,4 +1,16 @@
 {
+  "CFBundleDisplayName": [
+    {
+      "type": 0,
+      "value": "CFBundleDisplayName"
+    }
+  ],
+  "NSContactsUsageDescription": [
+    {
+      "type": 0,
+      "value": "NSContactsUsageDescription"
+    }
+  ],
   "actions.cancelRecord": [
     {
       "type": 0,

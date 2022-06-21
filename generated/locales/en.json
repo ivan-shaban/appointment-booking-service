@@ -1,4 +1,6 @@
 {
+  "CFBundleDisplayName": "CFBundleDisplayName",
+  "NSContactsUsageDescription": "NSContactsUsageDescription",
   "actions.cancelRecord": "Cancel entry",
   "actions.leftFeedback": "Add feedback",
   "actions.sendMessage": "Send message",

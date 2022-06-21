@@ -1,4 +1,6 @@
 {
+  "CFBundleDisplayName": "CFBundleDisplayName",
+  "NSContactsUsageDescription": "NSContactsUsageDescription",
   "actions.cancelRecord": "Отменить запись",
   "actions.leftFeedback": "Оставить отзыв",
   "actions.sendMessage": "Оставить сообщение",
