@@ -26,8 +26,8 @@ declare global {
 
 export type RootStackParamList = {
     Root: NavigatorScreenParams<RootTabParamList>
-    MasterProfile: { id: number } & NavigatorScreenParams<MasterProfileTabParamList>
-    LocationProfile: { id: number }
+    MasterProfile: { id: string } & NavigatorScreenParams<MasterProfileTabParamList>
+    LocationProfile: { id: string }
     MasterPhotoModal: { master: Master }
 }
 

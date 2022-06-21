@@ -1,9 +1,11 @@
 import { useStore } from 'effector-react'
+import * as Linking from 'expo-linking'
 import React, { useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native'
 import { Appbar, Avatar } from 'react-native-paper'
 
+import { Tab } from '../../constants/Tab'
 import { useMaster } from '../../hooks/useMaster'
 import { mastersLocale } from '../../locales/masters'
 import {
@@ -13,6 +15,7 @@ import {
     removeFavouriteMasterFx,
 } from '../../store/user'
 import { RootStackScreenProps } from '../../types'
+import { ShareButton } from '../ShareButton'
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
 
@@ -34,10 +37,17 @@ export const MasterProfileHeader = ({
             master,
         })
     }, [master, navigation])
+    const navigateToBack = useCallback(() => {
+        navigation.canGoBack()
+            ? navigation.goBack()
+            : navigation.navigate('Root', {
+                  screen: Tab.Masters,
+              })
+    }, [navigation])
 
     return (
         <Appbar.Header>
-            <Appbar.BackAction onPress={navigation.goBack} />
+            <Appbar.BackAction onPress={navigateToBack} />
             <TouchableOpacity onPress={handleOpenMasterPhotoModal}>
                 <Avatar.Image
                     size={40}
@@ -59,7 +69,12 @@ export const MasterProfileHeader = ({
                 disabled={isFavouriteMasterRequestPending}
                 onPress={handleFavouritePress}
             />
-            <Appbar.Action style={styles.smallItem} icon="share-variant" onPress={() => {}} />
+            <ShareButton
+                style={styles.smallItem}
+                title={`Master profile: ${master.name}`}
+                message={Linking.createURL(`masters/${master.id}`)}
+                url={Linking.createURL(`masters/${master.id}`)}
+            />
             <Appbar.Action style={styles.smallItem} icon={MORE_ICON} onPress={() => {}} />
         </Appbar.Header>
     )

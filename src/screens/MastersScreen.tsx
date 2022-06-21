@@ -12,8 +12,8 @@ export function MastersScreen({ navigation }: RootTabScreenProps<Tab.Masters>) {
 
     return (
         <ScrollView style={styles.container}>
-            {masters.map((master) => (
-                <MasterItem master={master} key={master.id} />
+            {masters.map((master, index) => (
+                <MasterItem master={master} isLast={index === masters.length - 1} key={master.id} />
             ))}
         </ScrollView>
     )

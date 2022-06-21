@@ -30,11 +30,9 @@ function App() {
     }, [])
 
     useEffect(() => {
-        if (isLoadingComplete) {
-            requestInitialData()
-            requestPermissions()
-        }
-    }, [isLoadingComplete])
+        requestInitialData()
+        requestPermissions()
+    }, [])
 
     // find solution, otherwise it crashes app on android
     // useEffect(() => {
@@ -43,7 +41,7 @@ function App() {
     // }
     // }, [isInitialDataLoaded])
 
-    if (isInitialDataLoaded) {
+    if (isLoadingComplete && isInitialDataLoaded) {
         return (
             <IntlProvider
                 messages={messages}

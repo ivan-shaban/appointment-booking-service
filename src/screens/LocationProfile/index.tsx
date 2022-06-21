@@ -27,7 +27,7 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
     const intl = useIntl()
     const masters = useStore($masters)
     const location = useLocation(route.params.id)
-    const localMasters = masters.filter(({ locationId }) => locationId === route.params.id)!
+    const localMasters = masters.filter(({ locationId }) => locationId === location.id)!
 
     const [fabOpen, setFabOpen] = useState(false)
 
@@ -72,8 +72,12 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                 </Paragpaph>
                 <Paragpaph icon="account-group-outline" title={menuLocale[Tab.Masters]}>
                     <View style={styles.pContent}>
-                        {localMasters.map((master) => (
-                            <MasterItem master={master} key={master.id} />
+                        {localMasters.map((master, index) => (
+                            <MasterItem
+                                master={master}
+                                isLast={index === localMasters.length - 1}
+                                key={master.id}
+                            />
                         ))}
                     </View>
                 </Paragpaph>

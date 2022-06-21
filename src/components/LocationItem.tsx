@@ -15,16 +15,17 @@ import { View as ThemedView } from './Themed'
 
 export interface Props {
     readonly location: Location
+    readonly isLast: boolean
 }
 
-export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
+export const LocationItem: FC<Props> = memo(function MasterItem({ location, isLast }) {
     const currentUser = useStore($currentUser)
     const masters = useStore($masters).filter(({ locationId }) => locationId === location.id)
     const isFavourite = currentUser?.favourite.locations.includes(location.id)
     const navigation = useNavigation()
 
     const handleOpenDetails = useCallback(() => {
-        navigation.navigate('LocationProfile', { id: location.id })
+        navigation.navigate('LocationProfile', { id: location.id.toString() })
     }, [location])
 
     return (
@@ -67,6 +68,7 @@ export const LocationItem: FC<Props> = memo(function MasterItem({ location }) {
                     />
                 )}
             </ThemedView>
+            {!isLast && <View style={styles.divider} />}
         </TouchableOpacity>
     )
 })
@@ -79,6 +81,12 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 16,
         // backgroundColor: 'powderblue',
+    },
+    divider: {
+        width: '60%',
+        alignSelf: 'center',
+        borderBottomColor: '#e1e1e1',
+        borderBottomWidth: 1,
     },
     avatar: {
         marginRight: 16,
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         top: 15,
-        left: 15,
+        left: 17,
         backgroundColor: colorByTab[Tab.Masters],
     },
     mastersBadgeIcon: {

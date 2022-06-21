@@ -6,11 +6,12 @@
 import { LinkingOptions } from '@react-navigation/native'
 import * as Linking from 'expo-linking'
 
+import { expo } from '../../app.json'
 import { Tab } from '../constants/Tab'
 import { RootStackParamList } from '../types'
 
 const linking: LinkingOptions<RootStackParamList> = {
-    prefixes: [Linking.makeUrl('/')],
+    prefixes: [Linking.makeUrl('/'), `${expo.scheme}://`, `https://www.${expo.scheme}.io/`],
     config: {
         initialRouteName: 'Root',
         screens: {
@@ -33,6 +34,7 @@ const linking: LinkingOptions<RootStackParamList> = {
                     },
                 },
             },
+            MasterPhotoModal: 'masters/:id/photo',
             MasterProfile: {
                 path: 'masters/:id',
                 // initialRouteName: Tab.Locations,
@@ -52,7 +54,6 @@ const linking: LinkingOptions<RootStackParamList> = {
             LocationProfile: {
                 path: 'locations/:id',
             },
-            MasterPhotoModal: 'modal',
         },
     },
 }

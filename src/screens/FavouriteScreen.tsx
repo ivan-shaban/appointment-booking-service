@@ -19,26 +19,36 @@ export function FavouriteScreen({ navigation }: RootTabScreenProps<Tab.Favourite
     const masters = useStore($masters)
     const locations = useStore($locations)
 
+    const favouriteLocations = currentUser?.favourite.locations
+        .map((locationId) => locations.find(({ id }) => id === locationId))
+        .filter((location) => location !== undefined)
+
+    const favouriteMasters = currentUser?.favourite.masters
+        .map((masterId) => masters.find(({ id }) => id === masterId))
+        .filter((master) => master !== undefined)
+
     return (
         <ScrollView style={styles.base}>
             <Paragpaph icon="account-group-outline" title={menuLocale[Tab.Masters]}>
                 <View style={styles.pContent}>
-                    {currentUser?.favourite.masters
-                        .map((masterId) => masters.find(({ id }) => id === masterId))
-                        .filter((master) => master !== undefined)
-                        .map((master) => (
-                            <MasterItem master={master!} key={master!.id} />
-                        ))}
+                    {favouriteMasters?.map((master, index) => (
+                        <MasterItem
+                            master={master!}
+                            isLast={index === favouriteMasters.length - 1}
+                            key={master!.id}
+                        />
+                    ))}
                 </View>
             </Paragpaph>
             <Paragpaph icon="map-marker-multiple-outline" title={menuLocale[Tab.Locations]}>
                 <View style={styles.pContent}>
-                    {currentUser?.favourite.locations
-                        .map((locationId) => locations.find(({ id }) => id === locationId))
-                        .filter((location) => location !== undefined)
-                        .map((location) => (
-                            <LocationItem location={location!} key={location!.id} />
-                        ))}
+                    {favouriteLocations?.map((location, index) => (
+                        <LocationItem
+                            location={location!}
+                            isLast={index === favouriteLocations.length - 1}
+                            key={location!.id}
+                        />
+                    ))}
                 </View>
             </Paragpaph>
         </ScrollView>

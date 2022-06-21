@@ -14,9 +14,10 @@ import { View as ThemedView } from './Themed'
 
 export interface Props {
     readonly master: Master
+    readonly isLast: boolean
 }
 
-export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
+export const MasterItem: FC<Props> = memo(function MasterItem({ master, isLast }) {
     const intl = useIntl()
     const navigation = useNavigation()
     const currentUser = useStore($currentUser)
@@ -24,7 +25,7 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
 
     const handleOpenProfile = useCallback(() => {
         navigation.navigate('MasterProfile', {
-            id: master.id,
+            id: master.id.toString(),
             screen: 'Description',
             params: { master },
         })
@@ -64,6 +65,7 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master }) {
                     />
                 )}
             </ThemedView>
+            {!isLast && <View style={styles.divider} />}
         </TouchableOpacity>
     )
 })
@@ -76,6 +78,12 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 16,
         // backgroundColor: 'powderblue',
+    },
+    divider: {
+        width: '60%',
+        alignSelf: 'center',
+        borderBottomColor: '#e1e1e1',
+        borderBottomWidth: 1,
     },
     avatar: {
         marginRight: 16,

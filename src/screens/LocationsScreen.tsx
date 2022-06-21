@@ -12,8 +12,12 @@ export function LocationsScreen({ navigation }: RootTabScreenProps<Tab.Locations
 
     return (
         <ScrollView style={styles.container}>
-            {locations.map((location) => (
-                <LocationItem location={location} key={location.id} />
+            {locations.map((location, index) => (
+                <LocationItem
+                    location={location}
+                    isLast={index === locations.length - 1}
+                    key={location.id}
+                />
             ))}
         </ScrollView>
     )

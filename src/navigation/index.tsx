@@ -1,9 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as React from 'react'
+import { ActivityIndicator } from 'react-native-paper'
 
 import { ScreenHeader } from '../components/ScreenHeader'
-import { Text } from '../components/Themed'
 import MasterPhoto from '../modals/MasterPhoto'
 import { LocationProfile } from '../screens/LocationProfile'
 import { MainScreen } from '../screens/MainScreen'
@@ -15,7 +15,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 
 export default function Navigation() {
     return (
-        <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+        <NavigationContainer
+            linking={linking}
+            fallback={<ActivityIndicator color="blue" size="large" />}
+        >
             <Stack.Navigator
                 screenOptions={{
                     header: ScreenHeader,

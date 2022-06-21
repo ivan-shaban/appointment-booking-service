@@ -75,7 +75,7 @@ export const DescriptionTab: FC<Props> = function Description({ route }) {
             {location && (
                 <Paragpaph icon="map-marker-outline" title={menuLocale[Tab.Locations]}>
                     <View style={styles.pContent}>
-                        <LocationItem location={location} key={location.id} />
+                        <LocationItem location={location} isLast key={location.id} />
                     </View>
                 </Paragpaph>
             )}

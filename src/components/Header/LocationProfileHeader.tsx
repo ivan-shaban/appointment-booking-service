@@ -1,8 +1,10 @@
 import { useStore } from 'effector-react'
+import * as Linking from 'expo-linking'
 import React, { useCallback } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { Appbar } from 'react-native-paper'
 
+import { Tab } from '../../constants/Tab'
 import { useLocation } from '../../hooks/useLocation'
 import {
     $currentUser,
@@ -11,9 +13,15 @@ import {
     removeFavouriteLocationFx,
 } from '../../store/user'
 import { RootStackScreenProps } from '../../types'
+import { ShareButton } from '../ShareButton'
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
 
+// console.log(
+//     `>> `,
+//     `npx uri-scheme open ${Linking.createURL('locations/3')} --android`,
+//     // `intent:#Intent;scheme=${expo.scheme}://locations/${3};package=${expo.android.package};end`,
+// )
 export const LocationProfileHeader = ({
     navigation,
     route,
@@ -25,10 +33,17 @@ export const LocationProfileHeader = ({
     const handleFavouritePress = useCallback(() => {
         isFavourite ? removeFavouriteLocationFx(location.id) : addFavouriteLocationFx(location.id)
     }, [location, isFavourite])
+    const navigateToBack = useCallback(() => {
+        navigation.canGoBack()
+            ? navigation.goBack()
+            : navigation.navigate('Root', {
+                  screen: Tab.Locations,
+              })
+    }, [navigation])
 
     return (
         <Appbar.Header>
-            <Appbar.BackAction onPress={navigation.goBack} />
+            <Appbar.BackAction onPress={navigateToBack} />
             <Appbar.Content title={location.name} subtitle={location.address} />
             <Appbar.Action
                 style={styles.bigItem}
@@ -37,7 +52,15 @@ export const LocationProfileHeader = ({
                 disabled={isFavouriteLocationRequestPending}
                 onPress={handleFavouritePress}
             />
-            <Appbar.Action style={styles.smallItem} icon="share-variant" onPress={() => {}} />
+            <ShareButton
+                style={styles.smallItem}
+                title={`Location profile: ${location.name}`}
+                message={Linking.createURL(`locations/${location.id}`)}
+                // message={`intent:#Intent;scheme=${expo.scheme}://locations/${location.id};package=${expo.android.package};end`}
+                // message={`Please install this app and stay safe , AppLink: ${`https://www.amazinghorse.io/locations/${location.id}`}`}
+                // message={`Please install this app and stay safe , AppLink: ${getAppStoreURL()}`}
+                url={Linking.createURL(`locations/${location.id}`)}
+            />
             <Appbar.Action style={styles.smallItem} icon={MORE_ICON} onPress={() => {}} />
         </Appbar.Header>
     )

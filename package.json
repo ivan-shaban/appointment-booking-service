@@ -4,9 +4,9 @@
   "main": "src/App.tsx",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
+    "start:android": "expo start --android",
+    "start:ios": "expo start --ios",
+    "start:web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
     "prebuild:android": "ts-node ./scripts/incrementAndroidVersion.ts",

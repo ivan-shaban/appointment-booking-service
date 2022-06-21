@@ -27,7 +27,36 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ivanshaban.appointmentbookingservice",
-      "versionCode": 7
+      "versionCode": 7,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+                    "scheme": "amazinghorse"
+                  },
+            {
+              "scheme": "https",
+              "host": "*.amazinghorse.io",
+              "pathPrefix": "/locations"
+            },
+            {
+              "scheme": "https",
+              "host": "*.amazinghorse.io",
+              "pathPrefix": "/root"
+            },
+            {
+              "scheme": "https",
+              "host": "*.amazinghorse.io",
+              "pathPrefix": "/masters"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
