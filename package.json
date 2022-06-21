@@ -9,6 +9,8 @@
     "start:web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
+    "test:deep-linking:expo": "npx uri-scheme open exp://192.168.18.18:19000/--/locations/3 --android",
+    "test:deep-linking:web": "npx uri-scheme open https://www.amazinghorse.io/locations/3 --android",
     "prebuild:android": "ts-node ./scripts/incrementAndroidVersion.ts",
     "build:android": "eas build --platform android",
     "i18n:extract": "formatjs extract \"src/**/*.{js,jsx,ts,tsx}\" --ignore=\"**/*.d.ts\" --format simple --id-interpolation-pattern [sha512:contenthash:base64:6] --out-file generated/locales/ru.json",

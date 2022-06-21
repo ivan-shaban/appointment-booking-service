@@ -31,24 +31,15 @@
       "intentFilters": [
         {
           "action": "VIEW",
+          "autoVerify": true,
           "data": [
             {
-                    "scheme": "amazinghorse"
-                  },
-            {
-              "scheme": "https",
-              "host": "*.amazinghorse.io",
-              "pathPrefix": "/locations"
+              "scheme": "amazinghorse"
             },
             {
               "scheme": "https",
               "host": "*.amazinghorse.io",
-              "pathPrefix": "/root"
-            },
-            {
-              "scheme": "https",
-              "host": "*.amazinghorse.io",
-              "pathPrefix": "/masters"
+              "pathPrefix": "/*"
             }
           ],
           "category": [
