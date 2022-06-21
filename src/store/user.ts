@@ -5,6 +5,7 @@ import shuffle from 'lodash.shuffle'
 
 export interface CurrentUser {
     readonly avatar: string
+    readonly tel: string
     readonly favourite: {
         readonly masters: number[]
         readonly locations: number[]
@@ -30,6 +31,7 @@ export const requestUserDataFx = createEffect({
         return {
             avatar: 'https://media-exp1.licdn.com/dms/image/D5603AQEECTGL5iYzXg/profile-displayphoto-shrink_400_400/0/1632843294224?e=1660780800&v=beta&t=2gN1UUQ8gJspNJtplukngF1cjn1xwHIyjHCZo5V4CD4',
             // avatar: 'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
+            tel: faker.phone.phoneNumber('+375 29 ### ## ##'),
             favourite: {
                 masters: masterIds.filter((_, index) => index <= favouriteMastersCount),
                 locations: locationsIds.filter((_, index) => index <= favouriteLocationsCount),

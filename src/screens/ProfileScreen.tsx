@@ -1,15 +1,21 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useStore } from 'effector-react'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { View as DefaultView, StyleSheet } from 'react-native'
 import { Title } from 'react-native-paper'
 
 import { Flag } from '../components/Flag'
+import { Paragpaph } from '../components/Paragpaph'
+import { PhoneRecord } from '../components/PhoneRecord'
 import { View, useThemeColor } from '../components/Themed'
 import { Tab } from '../constants/Tab'
+import { subheadersLocale } from '../locales/subheaders'
+import { $currentUser } from '../store/user'
 import { RootTabScreenProps } from '../types'
 
 export function ProfileScreen({ navigation }: RootTabScreenProps<Tab.Profile>) {
+    const user = useStore($currentUser)
     const iconColor = useThemeColor({}, 'text')
 
     return (
@@ -32,6 +38,9 @@ export function ProfileScreen({ navigation }: RootTabScreenProps<Tab.Profile>) {
                     <Flag language="en" />
                 </View>
             </View>
+            <Paragpaph icon="phone-outline" title={subheadersLocale.contacts}>
+                <PhoneRecord phone={user!.tel} disabled />
+            </Paragpaph>
         </View>
     )
 }
