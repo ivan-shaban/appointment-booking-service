@@ -3,8 +3,9 @@ import { useStore } from 'effector-react'
 import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { View as DefaultView, StyleSheet } from 'react-native'
-import { Title } from 'react-native-paper'
+import { Subheading, Title } from 'react-native-paper'
 
+import { version } from '../../package.json'
 import { Flag } from '../components/Flag'
 import { Paragpaph } from '../components/Paragpaph'
 import { PhoneRecord } from '../components/PhoneRecord'
@@ -45,6 +46,9 @@ export function ProfileScreen({ navigation }: RootTabScreenProps<Tab.Profile>) {
                 onEdit={handleTelEdit}
             >
                 <PhoneRecord phone={user!.tel} disabled />
+            </Paragpaph>
+            <Paragpaph icon="cellphone-arrow-down" title="version">
+                <Subheading>{version}</Subheading>
             </Paragpaph>
         </View>
     )
