@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         top: 15,
         left: 17,
-        backgroundColor: colorByTab[Tab.Masters],
+        backgroundColor: colorByTab[Tab.Locations],
     },
     mastersBadgeIcon: {
         marginRight: 4,
