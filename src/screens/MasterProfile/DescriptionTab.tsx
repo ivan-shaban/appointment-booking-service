@@ -6,7 +6,7 @@ import { Chip, Subheading } from 'react-native-paper'
 
 import { Flag } from '../../components/Flag'
 import { LocationItem } from '../../components/LocationItem'
-import { Paragpaph } from '../../components/Paragpaph'
+import { Paragpaph, paragpaphOffset } from '../../components/Paragpaph'
 import { ServiceChip } from '../../components/ServiceChip'
 import { ScrollView } from '../../components/Themed'
 import { Tab } from '../../constants/Tab'
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginRight: 8,
     },
-    pContent: { marginLeft: -50, width: Dimensions.get('screen').width },
+    pContent: { marginLeft: -paragpaphOffset, width: Dimensions.get('screen').width },
     divider: {
         width: 1,
         height: 20,

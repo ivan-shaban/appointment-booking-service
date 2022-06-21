@@ -5,7 +5,7 @@ import { Dimensions, StyleSheet } from 'react-native'
 
 import { LocationItem } from '../components/LocationItem'
 import { MasterItem } from '../components/MasterItem'
-import { Paragpaph } from '../components/Paragpaph'
+import { Paragpaph, paragpaphOffset } from '../components/Paragpaph'
 import { ScrollView, View } from '../components/Themed'
 import { Tab } from '../constants/Tab'
 import { menuLocale } from '../locales/menu'
@@ -59,5 +59,5 @@ const styles = StyleSheet.create({
     base: {
         flex: 1,
     },
-    pContent: { marginLeft: -50, width: Dimensions.get('screen').width },
+    pContent: { marginLeft: -paragpaphOffset, width: Dimensions.get('screen').width },
 })

@@ -53,6 +53,7 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master, isLast }
                         <RatingEntry
                             rating={master.rating}
                             feedbacksCount={master.feedbacks.length}
+                            single
                         />
                     </Text>
                 </View>

@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useStore } from 'effector-react'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { View as DefaultView, StyleSheet } from 'react-native'
 import { Title } from 'react-native-paper'
@@ -17,6 +17,7 @@ import { RootTabScreenProps } from '../types'
 export function ProfileScreen({ navigation }: RootTabScreenProps<Tab.Profile>) {
     const user = useStore($currentUser)
     const iconColor = useThemeColor({}, 'text')
+    const handleTelEdit = useCallback(() => {}, [])
 
     return (
         <View style={styles.base}>
@@ -38,7 +39,11 @@ export function ProfileScreen({ navigation }: RootTabScreenProps<Tab.Profile>) {
                     <Flag language="en" />
                 </View>
             </View>
-            <Paragpaph icon="phone-outline" title={subheadersLocale.contacts}>
+            <Paragpaph
+                icon="phone-outline"
+                title={subheadersLocale.contacts}
+                onEdit={handleTelEdit}
+            >
                 <PhoneRecord phone={user!.tel} disabled />
             </Paragpaph>
         </View>

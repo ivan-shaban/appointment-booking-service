@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import { Subheading } from 'react-native-paper'
 
 import { Location } from '../store/locations'
+import { paragpaphOffset } from './Paragpaph'
 
 export interface Props {
     readonly index: number
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     base: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginRight: paragpaphOffset / 2,
     },
     hours: {},
 })

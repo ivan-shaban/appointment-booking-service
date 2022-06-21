@@ -8,7 +8,7 @@ import { FeedbackEntry } from '../../components/FeedbackEntry'
 import { Gallery } from '../../components/Gallery'
 import { LocationWorkStatus } from '../../components/LocationWorkStatus'
 import { MasterItem } from '../../components/MasterItem'
-import { Paragpaph } from '../../components/Paragpaph'
+import { Paragpaph, paragpaphOffset } from '../../components/Paragpaph'
 import { PhoneRecord } from '../../components/PhoneRecord'
 import { RatingEntry } from '../../components/RatingEntry'
 import { Schedule } from '../../components/Schedule'
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         marginRight: 8,
         padding: 0,
     },
-    pContent: { marginLeft: -50, width: Dimensions.get('screen').width },
+    pContent: { marginLeft: -paragpaphOffset, width: Dimensions.get('screen').width },
     fab: {
         position: 'absolute',
         bottom: 48,
