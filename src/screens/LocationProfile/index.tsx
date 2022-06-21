@@ -14,6 +14,7 @@ import { RatingEntry } from '../../components/RatingEntry'
 import { Schedule } from '../../components/Schedule'
 import { ServiceChip } from '../../components/ServiceChip'
 import { ScrollView } from '../../components/Themed'
+import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
 import { Service } from '../../constants/services'
 import { useLocation } from '../../hooks/useLocation'
@@ -94,6 +95,7 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                 open={fabOpen}
                 icon={fabOpen ? 'arrow-left-circle' : 'plus'}
                 color="white"
+                fabStyle={styles.fab}
                 actions={[
                     {
                         icon: 'calendar-today',
@@ -154,9 +156,5 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     pContent: { marginLeft: -paragpaphOffset, width: Dimensions.get('screen').width },
-    fab: {
-        position: 'absolute',
-        bottom: 48,
-        right: 0,
-    },
+    fab: { backgroundColor: colorByTab[Tab.Locations] },
 })

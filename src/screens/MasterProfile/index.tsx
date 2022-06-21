@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native'
 import { Badge, FAB } from 'react-native-paper'
 
 import { View } from '../../components/Themed'
+import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
 import { useMaster } from '../../hooks/useMaster'
 import { actionsLocale } from '../../locales/actions'
@@ -49,6 +50,7 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
             </TabsTop.Navigator>
             <FAB.Group
                 style={styles.fab}
+                fabStyle={styles.fabStyle}
                 open={fabOpen}
                 icon={fabOpen ? 'arrow-left-circle' : 'plus'}
                 color="white"
@@ -113,4 +115,5 @@ const styles = StyleSheet.create({
         bottom: 48,
         right: 0,
     },
+    fabStyle: { backgroundColor: colorByTab[Tab.Masters] },
 })
