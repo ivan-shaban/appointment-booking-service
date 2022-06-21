@@ -1,28 +1,23 @@
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useStore } from 'effector-react'
 import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
-import { Dimensions, StyleSheet, View } from 'react-native'
-import { FAB, Subheading } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
+import { Badge, FAB } from 'react-native-paper'
 
-import { FeedbackEntry } from '../../components/FeedbackEntry'
-import { Gallery } from '../../components/Gallery'
-import { LocationWorkStatus } from '../../components/LocationWorkStatus'
-import { MasterItem } from '../../components/MasterItem'
-import { Paragpaph, paragpaphOffset } from '../../components/Paragpaph'
-import { PhoneRecord } from '../../components/PhoneRecord'
-import { RatingEntry } from '../../components/RatingEntry'
-import { Schedule } from '../../components/Schedule'
-import { ServiceChip } from '../../components/ServiceChip'
-import { ScrollView } from '../../components/Themed'
 import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
-import { Service } from '../../constants/services'
 import { useLocation } from '../../hooks/useLocation'
 import { actionsLocale } from '../../locales/actions'
 import { menuLocale } from '../../locales/menu'
 import { subheadersLocale } from '../../locales/subheaders'
 import { $masters } from '../../store/masters'
-import { RootStackScreenProps } from '../../types'
+import { LocationProfileTabParamList, RootStackScreenProps } from '../../types'
+import { DescriptionTab } from './DescriptionTab'
+import { FeedbacksTab } from './FeedbacksTab'
+import { MastersTab } from './MastersTab'
+
+const TabsBottom = createMaterialTopTabNavigator<LocationProfileTabParamList>()
 
 export function LocationProfile({ navigation, route }: RootStackScreenProps<'LocationProfile'>) {
     const intl = useIntl()
@@ -36,61 +31,40 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
 
     return (
         <View style={styles.base}>
-            <ScrollView showsVerticalScrollIndicator={true}>
-                <Gallery images={location.gallery} />
-                <Paragpaph icon="image-text" title={location.name}>
-                    <RatingEntry
-                        rating={location.rating}
-                        feedbacksCount={location.feedbacks.length}
-                    />
-                    <LocationWorkStatus location={location} />
-                    <Subheading>{location.description}</Subheading>
-                </Paragpaph>
-                <Paragpaph icon="map-outline" title={subheadersLocale.address}>
-                    <Subheading>{location.address}</Subheading>
-                </Paragpaph>
-                <Paragpaph icon="phone-outline" title={subheadersLocale.contacts}>
-                    {location.tel.map((tel) => (
-                        <PhoneRecord key={tel} phone={tel} />
-                    ))}
-                </Paragpaph>
-                <Paragpaph icon="clock-outline" title={subheadersLocale.schedule}>
-                    {location.schedules.map((schedule, index) => (
-                        <Schedule key={index} value={schedule} index={index} />
-                    ))}
-                </Paragpaph>
-                <Paragpaph icon="chair-rolling" title={subheadersLocale.services}>
-                    <View style={styles.servicesContainer}>
-                        {Array.from(
-                            localMasters.reduce((result, master) => {
-                                master.services.forEach((service) => result.add(service))
-                                return result
-                            }, new Set<Service>()),
-                        ).map((service) => (
-                            <ServiceChip type={service} key={service} />
-                        ))}
-                    </View>
-                </Paragpaph>
-                <Paragpaph icon="account-group-outline" title={menuLocale[Tab.Masters]}>
-                    <View style={styles.pContent}>
-                        {localMasters.map((master, index) => (
-                            <MasterItem
-                                master={master}
-                                isLast={index === localMasters.length - 1}
-                                key={master.id}
-                            />
-                        ))}
-                    </View>
-                </Paragpaph>
-                {/*<Paragpaph icon="list-status" title="Feedbacks">*/}
-                <Paragpaph icon="comment-text-multiple-outline" title={subheadersLocale.feedbacks}>
-                    <View style={styles.pContent}>
-                        {location.feedbacks.map((feedback) => (
-                            <FeedbackEntry key={feedback.id} feedback={feedback} />
-                        ))}
-                    </View>
-                </Paragpaph>
-            </ScrollView>
+            <TabsBottom.Navigator initialRouteName="Description" tabBarPosition="bottom">
+                <TabsBottom.Screen
+                    name="Description"
+                    component={DescriptionTab}
+                    options={{ title: intl.formatMessage(menuLocale[Tab.Profile]) }}
+                    initialParams={{ location }}
+                />
+                <TabsBottom.Screen
+                    name="Masters"
+                    component={MastersTab}
+                    options={{
+                        tabBarLabel: intl.formatMessage(menuLocale[Tab.Masters]),
+                        tabBarBadge: () =>
+                            !!localMasters.length && (
+                                <Badge style={styles.mastersBadge}>{localMasters.length}</Badge>
+                            ),
+                    }}
+                    initialParams={{ location }}
+                />
+                <TabsBottom.Screen
+                    name="Feedbacks"
+                    component={FeedbacksTab}
+                    options={{
+                        tabBarLabel: intl.formatMessage(subheadersLocale.feedbacks),
+                        tabBarBadge: () =>
+                            !!location.feedbacks.length && (
+                                <Badge style={styles.feedbackBadge}>
+                                    {location.feedbacks.length}
+                                </Badge>
+                            ),
+                    }}
+                    initialParams={{ location }}
+                />
+            </TabsBottom.Navigator>
             <FAB.Group
                 open={fabOpen}
                 icon={fabOpen ? 'arrow-left-circle' : 'plus'}
@@ -139,22 +113,17 @@ const styles = StyleSheet.create({
     base: {
         flex: 1,
     },
-    favouriteButton: {
-        position: 'absolute',
-        backgroundColor: 'white',
-        top: 160,
-        left: 250,
+    mastersBadge: {
+        marginTop: 5,
+        marginRight: 0,
+        color: 'white',
+        backgroundColor: 'red',
     },
-    servicesContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        // backgroundColor: 'red',
+    feedbackBadge: {
+        marginTop: 5,
+        marginRight: 20,
+        color: 'white',
+        backgroundColor: 'red',
     },
-    serviceChip: {
-        marginTop: 4,
-        marginRight: 8,
-        padding: 0,
-    },
-    pContent: { marginLeft: -paragpaphOffset, width: Dimensions.get('screen').width },
-    fab: { backgroundColor: colorByTab[Tab.Locations] },
+    fab: { position: 'absolute', bottom: 48, right: 0, backgroundColor: colorByTab[Tab.Locations] },
 })

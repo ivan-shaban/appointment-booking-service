@@ -22,7 +22,7 @@
       "supportsTablet": true
     },
     "android": {
-      "googleServicesFile": "./googleServicesFile",
+      "googleServicesFile": "./googleServicesFile.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/horse512.png",
         "backgroundColor": "#ffffff"

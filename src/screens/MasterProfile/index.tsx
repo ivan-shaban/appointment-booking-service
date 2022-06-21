@@ -15,7 +15,7 @@ import { MasterProfileTabParamList, RootStackScreenProps } from '../../types'
 import { DescriptionTab } from './DescriptionTab'
 import { FeedbacksTab } from './FeedbacksTab'
 
-const TabsTop = createMaterialTopTabNavigator<MasterProfileTabParamList>()
+const TabsBottom = createMaterialTopTabNavigator<MasterProfileTabParamList>()
 
 export function MasterProfile({ navigation, route }: RootStackScreenProps<'MasterProfile'>) {
     const intl = useIntl()
@@ -26,14 +26,14 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
 
     return (
         <View style={styles.base}>
-            <TabsTop.Navigator initialRouteName="Description" tabBarPosition="bottom">
-                <TabsTop.Screen
+            <TabsBottom.Navigator initialRouteName="Description" tabBarPosition="bottom">
+                <TabsBottom.Screen
                     name="Description"
                     component={DescriptionTab}
                     options={{ title: intl.formatMessage(menuLocale[Tab.Profile]) }}
                     initialParams={{ master }}
                 />
-                <TabsTop.Screen
+                <TabsBottom.Screen
                     name="Feedbacks"
                     component={FeedbacksTab}
                     options={{
@@ -47,7 +47,7 @@ export function MasterProfile({ navigation, route }: RootStackScreenProps<'Maste
                     }}
                     initialParams={{ master }}
                 />
-            </TabsTop.Navigator>
+            </TabsBottom.Navigator>
             <FAB.Group
                 style={styles.fab}
                 fabStyle={styles.fabStyle}

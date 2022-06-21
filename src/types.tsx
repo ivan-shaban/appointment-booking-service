@@ -7,6 +7,7 @@ import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/n
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 import { Tab } from './constants/Tab'
+import { Location } from './store/locations'
 import { Master } from './store/masters'
 
 declare global {
@@ -27,7 +28,7 @@ declare global {
 export type RootStackParamList = {
     Root: NavigatorScreenParams<RootTabParamList>
     MasterProfile: { id: string } & NavigatorScreenParams<MasterProfileTabParamList>
-    LocationProfile: { id: string }
+    LocationProfile: { id: string } & NavigatorScreenParams<LocationProfileTabParamList>
     MasterPhotoModal: { master: Master }
 }
 
@@ -46,6 +47,12 @@ export type RootTabParamList = {
 export type MasterProfileTabParamList = {
     Description: { master: Master }
     Feedbacks: { master: Master }
+}
+
+export type LocationProfileTabParamList = {
+    Description: { location: Location }
+    Masters: { location: Location }
+    Feedbacks: { location: Location }
 }
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
