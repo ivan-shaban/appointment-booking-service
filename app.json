@@ -2,7 +2,7 @@
   "expo": {
     "name": "appointment-booking-service",
     "slug": "appointment-booking-service",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "orientation": "portrait",
     "icon": "./assets/images/horse512.png",
     "scheme": "amazinghorse",
@@ -28,7 +28,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ivanshaban.appointmentbookingservice",
-      "versionCode": 11,
+      "versionCode": 12,
       "intentFilters": [
         {
           "action": "VIEW",
