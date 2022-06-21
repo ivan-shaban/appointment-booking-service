@@ -12,7 +12,7 @@ npm-debug.*
 web-build/
 
 yarn-error.log
-googleServicesFile.json
+google-services.json
 
 # macOS
 .DS_Store
