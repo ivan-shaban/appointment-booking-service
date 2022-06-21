@@ -36,11 +36,12 @@ function App() {
         }
     }, [isLoadingComplete])
 
-    useEffect(() => {
-        if (isInitialDataLoaded) {
-            moment.locale(locale)
-        }
-    }, [isInitialDataLoaded])
+    // find solution, otherwise it crashes app on android
+    // useEffect(() => {
+    // if (isInitialDataLoaded) {
+    //     moment.locale(locale) // we get ru-BY
+    // }
+    // }, [isInitialDataLoaded])
 
     if (isInitialDataLoaded) {
         return (

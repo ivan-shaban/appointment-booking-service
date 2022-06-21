@@ -1,6 +1,6 @@
 {
   "name": "appointment-booking-service",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "main": "src/App.tsx",
   "scripts": {
     "start": "expo start",
@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "build:test": "ts-node ./scripts/incrementAndroidVersion.ts",
+    "prebuild:android": "ts-node ./scripts/incrementAndroidVersion.ts",
     "build:android": "eas build --platform android",
     "i18n:extract": "formatjs extract \"src/**/*.{js,jsx,ts,tsx}\" --ignore=\"**/*.d.ts\" --format simple --id-interpolation-pattern [sha512:contenthash:base64:6] --out-file generated/locales/ru.json",
     "i18n:compile": "formatjs compile-folder --ast --format simple generated/locales assets/locales"
