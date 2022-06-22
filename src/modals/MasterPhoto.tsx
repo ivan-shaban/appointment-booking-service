@@ -1,7 +1,9 @@
+import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import { Avatar, Subheading, Title } from 'react-native-paper'
+import { Subheading, Title } from 'react-native-paper'
 
+import { Avatar } from '../components/Avatar'
 import { View } from '../components/Themed'
 import { mastersLocale } from '../locales/masters'
 import { RootStackScreenProps } from '../types'
@@ -15,13 +17,7 @@ export default function MasterPhoto({
 
     return (
         <View style={styles.base}>
-            <Avatar.Image
-                size={300}
-                style={styles.avatar}
-                source={{
-                    uri: master.avatar,
-                }}
-            />
+            <Avatar style={styles.avatar} uri={master.avatar} size={300} />
             <Title>{master.name}</Title>
             <Subheading>
                 {master.type.map((type) => intl.formatMessage(mastersLocale[type])).join(', ')}

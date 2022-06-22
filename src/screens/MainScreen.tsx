@@ -1,14 +1,14 @@
 import { EventMapCore } from '@react-navigation/core/src/types'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { NavigationState } from '@react-navigation/routers/src/types'
-import React, { FC, memo, useMemo } from 'react'
+import React, { FC, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { StyleSheet } from 'react-native'
 
 import { colorByTab } from '../constants/Colors'
 import { Tab } from '../constants/Tab'
 import { menuLocale } from '../locales/menu'
-import { changeHeaderColor } from '../store/header'
+import { changeSubRouter } from '../store/header'
 import { RootTabParamList } from '../types'
 import { FavouriteScreen } from './FavouriteScreen'
 import { LocationsScreen } from './LocationsScreen'
@@ -19,13 +19,13 @@ const BottomTab = createMaterialBottomTabNavigator<RootTabParamList>()
 
 export interface Props {}
 
-export const MainScreen: FC<Props> = memo(function MainScreen(props) {
+export const MainScreen: FC<Props> = function MainScreen(props) {
     const intl = useIntl()
     const listeners = useMemo(
         () => ({
             state: (event: EventMapCore<NavigationState<RootTabParamList>>['state']) => {
                 const routeName = event.data.state.routes[event.data.state.index].name as Tab
-                changeHeaderColor(colorByTab[routeName])
+                changeSubRouter(routeName)
             },
         }),
         [],
@@ -77,7 +77,7 @@ export const MainScreen: FC<Props> = memo(function MainScreen(props) {
             />
         </BottomTab.Navigator>
     )
-})
+}
 
 const styles = StyleSheet.create({
     base: {},

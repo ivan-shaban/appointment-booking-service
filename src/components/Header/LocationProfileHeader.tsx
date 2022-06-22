@@ -43,7 +43,7 @@ export const LocationProfileHeader = ({
     }, [navigation])
 
     return (
-        <Appbar.Header style={{ backgroundColor: colorByTab[Tab.Locations] }}>
+        <Appbar.Header style={styles.base}>
             <Appbar.BackAction color="white" onPress={navigateToBack} />
             <Appbar.Content color="white" title={location.name} subtitle={location.address} />
             <Appbar.Action
@@ -73,7 +73,7 @@ export const LocationProfileHeader = ({
 }
 
 const styles = StyleSheet.create({
-    base: {},
+    base: { backgroundColor: colorByTab[Tab.Locations] },
     bigItem: {
         marginLeft: 'auto',
     },

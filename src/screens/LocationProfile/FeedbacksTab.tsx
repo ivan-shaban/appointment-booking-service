@@ -24,6 +24,7 @@ export const FeedbacksTab: FC<Props> = function Description({ route }) {
                     ))}
                 </View>
             </Paragpaph>
+            <View style={{ height: 20 }} />
         </ScrollView>
     )
 }

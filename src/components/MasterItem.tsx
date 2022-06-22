@@ -4,11 +4,12 @@ import { useStore } from 'effector-react'
 import React, { FC, memo, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, Headline, Text } from 'react-native-paper'
+import { Headline, Text } from 'react-native-paper'
 
 import { mastersLocale } from '../locales/masters'
 import { Master } from '../store/masters'
 import { $currentUser } from '../store/user'
+import { Avatar } from './Avatar'
 import { RatingEntry } from './RatingEntry'
 import { View as ThemedView } from './Themed'
 
@@ -34,13 +35,7 @@ export const MasterItem: FC<Props> = memo(function MasterItem({ master, isLast }
     return (
         <TouchableOpacity onPress={handleOpenProfile}>
             <ThemedView style={styles.base}>
-                <Avatar.Image
-                    style={styles.avatar}
-                    size={40}
-                    source={{
-                        uri: master.avatar,
-                    }}
-                />
+                <Avatar style={styles.avatar} uri={master.avatar} />
                 <View>
                     <Headline numberOfLines={1} style={styles.reducedText}>
                         {master.name}

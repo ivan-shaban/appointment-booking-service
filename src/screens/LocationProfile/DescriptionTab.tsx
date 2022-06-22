@@ -1,6 +1,6 @@
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs/src/types'
 import React, { FC } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Subheading } from 'react-native-paper'
 
 import { Gallery } from '../../components/Gallery'
@@ -40,6 +40,7 @@ export const DescriptionTab: FC<Props> = function Description({ route }) {
                     <Schedule key={index} value={schedule} index={index} />
                 ))}
             </Paragpaph>
+            <View style={{ height: 20 }} />
         </ScrollView>
     )
 }

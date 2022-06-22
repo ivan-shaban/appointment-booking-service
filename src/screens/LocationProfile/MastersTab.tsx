@@ -46,6 +46,7 @@ export const MastersTab: FC<Props> = function Description({ route }) {
                     ))}
                 </View>
             </Paragpaph>
+            <View style={{ height: 20 }} />
         </ScrollView>
     )
 }

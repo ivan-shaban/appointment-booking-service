@@ -2,8 +2,8 @@ import { useStore } from 'effector-react'
 import * as Linking from 'expo-linking'
 import React, { useCallback } from 'react'
 import { useIntl } from 'react-intl'
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native'
-import { Appbar, Avatar } from 'react-native-paper'
+import { Platform, StyleSheet } from 'react-native'
+import { Appbar } from 'react-native-paper'
 
 import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
@@ -16,6 +16,7 @@ import {
     removeFavouriteMasterFx,
 } from '../../store/user'
 import { RootStackScreenProps } from '../../types'
+import { Avatar } from '../Avatar'
 import { ShareButton } from '../ShareButton'
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical'
@@ -47,16 +48,9 @@ export const MasterProfileHeader = ({
     }, [navigation])
 
     return (
-        <Appbar.Header style={{ backgroundColor: colorByTab[Tab.Masters] }}>
+        <Appbar.Header style={styles.base}>
             <Appbar.BackAction onPress={navigateToBack} />
-            <TouchableOpacity onPress={handleOpenMasterPhotoModal}>
-                <Avatar.Image
-                    size={40}
-                    source={{
-                        uri: master.avatar,
-                    }}
-                />
-            </TouchableOpacity>
+            <Avatar uri={master.avatar} onPress={handleOpenMasterPhotoModal} />
             <Appbar.Content
                 title={master.name}
                 subtitle={master.type
@@ -82,7 +76,7 @@ export const MasterProfileHeader = ({
 }
 
 const styles = StyleSheet.create({
-    base: {},
+    base: { backgroundColor: colorByTab[Tab.Masters] },
     bigItem: {
         marginLeft: 'auto',
     },

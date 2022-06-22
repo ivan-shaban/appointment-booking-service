@@ -2,9 +2,10 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { useStore } from 'effector-react'
 import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Badge, FAB } from 'react-native-paper'
 
+import { View } from '../../components/Themed'
 import { colorByTab } from '../../constants/Colors'
 import { Tab } from '../../constants/Tab'
 import { useLocation } from '../../hooks/useLocation'
@@ -69,7 +70,8 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
                 open={fabOpen}
                 icon={fabOpen ? 'arrow-left-circle' : 'plus'}
                 color="white"
-                fabStyle={styles.fab}
+                style={styles.fab}
+                fabStyle={styles.fabStyle}
                 actions={[
                     {
                         icon: 'calendar-today',
@@ -111,6 +113,7 @@ export function LocationProfile({ navigation, route }: RootStackScreenProps<'Loc
 
 const styles = StyleSheet.create({
     base: {
+        position: 'relative',
         flex: 1,
     },
     mastersBadge: {
@@ -125,5 +128,7 @@ const styles = StyleSheet.create({
         color: 'white',
         backgroundColor: 'red',
     },
-    fab: { position: 'absolute', bottom: 48, right: 0, backgroundColor: colorByTab[Tab.Locations] },
+    // fab: { position: 'absolute', bottom: 48, right: 0, backgroundColor: 'red' },
+    fab: { position: 'absolute', bottom: 48, right: 0 },
+    fabStyle: { backgroundColor: colorByTab[Tab.Locations] },
 })

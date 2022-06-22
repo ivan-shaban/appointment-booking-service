@@ -25,7 +25,7 @@ export const DescriptionTab: FC<Props> = function Description({ route }) {
     const location = useLocation(master.locationId)
 
     return (
-        <ScrollView style={styles.base}>
+        <ScrollView>
             <Paragpaph icon="image-text" title={subheadersLocale.aboutSelf}>
                 <Subheading>{master.description}</Subheading>
             </Paragpaph>
@@ -79,14 +79,12 @@ export const DescriptionTab: FC<Props> = function Description({ route }) {
                     </View>
                 </Paragpaph>
             )}
+            <View style={{ height: 20 }} />
         </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    base: {
-        flex: 1,
-    },
     fab: {
         position: 'absolute',
         margin: 16,
