@@ -1,6 +1,6 @@
 {
   "name": "appointment-booking-service",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "main": "src/App.tsx",
   "scripts": {
     "start": "expo start",
@@ -11,8 +11,8 @@
     "test": "jest --watchAll",
     "test:deep-linking:expo": "npx uri-scheme open exp://192.168.18.18:19000/--/locations/3 --android",
     "test:deep-linking:web": "npx uri-scheme open https://www.amazinghorse.io/locations/3 --android",
-    "prebuild:android": "ts-node ./scripts/incrementAndroidVersion.ts",
     "build:android": "eas build --platform android",
+    "postbuild:android": "ts-node ./scripts/incrementAndroidVersion.ts",
     "i18n:extract": "formatjs extract \"src/**/*.{js,jsx,ts,tsx}\" --ignore=\"**/*.d.ts\" --format simple --id-interpolation-pattern [sha512:contenthash:base64:6] --out-file generated/locales/ru.json",
     "i18n:compile": "formatjs compile-folder --ast --format simple generated/locales assets/locales"
   },
